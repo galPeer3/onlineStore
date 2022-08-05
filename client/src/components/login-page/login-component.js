@@ -1,9 +1,9 @@
 import { styles } from './login-component-styles';
 import { useState } from 'react';
+import {redirect} from "../service/service";
 
 export function LoginComponent(props) {
 
-    const {redirect} = props;
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
@@ -25,11 +25,11 @@ export function LoginComponent(props) {
 
           response.then((response) => response.json())
           .then((data) => {
-            redirect('/home')
+            redirect('/home', data)
             })
         .catch((error) => {
-        alert(error);
-        });
+            alert(error);
+            });
     };
 
     return (
