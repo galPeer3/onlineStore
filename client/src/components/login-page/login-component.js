@@ -1,8 +1,12 @@
 import { styles } from './login-component-styles';
 import { useState } from 'react';
-import {redirect} from "../service/service";
+import {Redirect} from "../service/Redirect";
+import { useNavigate } from "react-router-dom";
+import { HomeComponent } from '../home-page/home-component';
+import { Navigate } from 'react-router-dom';
 
 export function LoginComponent(props) {
+    const navigate = useNavigate();
 
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -13,7 +17,12 @@ export function LoginComponent(props) {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     }
-    const tdry = () => {alert("Dddd");}
+    const tdry = () => {
+        localStorage.setItem('isAuth', 'dd');
+
+        alert(`${!!localStorage.getItem('isAuth')}`)
+        navigate('/home', {state:{name: name, password: password}});
+    }
     const login = async () => {
         const userData = {name: name, password: password};
         const url = '/login';
@@ -25,7 +34,7 @@ export function LoginComponent(props) {
 
           response.then((response) => response.json())
           .then((data) => {
-            redirect('/home', data)
+            navigate('/home', {state: data})
             })
         .catch((error) => {
             alert(error);
