@@ -6,6 +6,7 @@ import { HomeComponent } from '../home-page/home-component';
 import { Navigate } from 'react-router-dom';
 
 export function LoginComponent(props) {
+    const {changeIsAuth} = props;
     const navigate = useNavigate();
 
     const [name, setName] = useState("");
@@ -18,9 +19,7 @@ export function LoginComponent(props) {
         setPassword(event.target.value);
     }
     const tdry = () => {
-        localStorage.setItem('isAuth', 'dd');
-
-        alert(`${!!localStorage.getItem('isAuth')}`)
+        changeIsAuth(true);
         navigate('/home', {state:{name: name, password: password}});
     }
     const login = async () => {
@@ -34,6 +33,7 @@ export function LoginComponent(props) {
 
           response.then((response) => response.json())
           .then((data) => {
+            //cookie = data.cookie...
             navigate('/home', {state: data})
             })
         .catch((error) => {
