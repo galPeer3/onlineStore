@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom";
 import { LoginComponent } from './components/login-page/login-component';
 import { NavigationComponent } from './components/navigation-bar/navigation-component';
 import { HomeComponent } from './components/home-page/home-component';
+import {RegisterComponent} from './components/register-page/register-component';
 
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<LoginComponent changeIsAuth={changeIsAuth} />} />
-      <Route path="/home" element= {isAuth? <HomeComponent />:<Navigate to="/" replace={true} />} />
+      <Route path="/login" element={<LoginComponent changeIsAuth={changeIsAuth} />} />
+      <Route path="/register" element={<RegisterComponent changeIsAuth={changeIsAuth} />} />
+      <Route path="/home" element= {isAuth? <HomeComponent />:<Navigate to="/login" replace={true} />} />
     </Routes>
   </BrowserRouter>
   );

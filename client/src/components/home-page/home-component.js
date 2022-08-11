@@ -7,9 +7,7 @@ import { LoginComponent } from "../login-page/login-component";
 export function HomeComponent(props) {
     const navigate = useNavigate();
     const {state} = useLocation(); // state holds the user data(so we can retrieve its cart)
-    if(!state) {
-        navigate('/');
-    }
+   
     //const homeData = fetchHomeData();
 
     // const fetchHomeDate = async () => {

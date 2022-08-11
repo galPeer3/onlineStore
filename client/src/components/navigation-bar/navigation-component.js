@@ -1,21 +1,22 @@
 import { styles } from "./navigation-component-styles";
-import { Redirect } from "../service/Redirect";
+import { useNavigate } from "react-router-dom";
 
 export function NavigationComponent(props) {
 
     const {cartData, userData, homeData} = props;
-    
+    const navigate = useNavigate();
+
     const onHomeClick = () => {
-        Redirect('/home', homeData);
+        navigate('/home', {state:userData}); //userDate = {name:name, password:password}
     }
     const onLogoutClick = () => {
-
+        navigate('/login', {replace:true});
     }
     const onAboutClick = () => {
-        Redirect('/about');
+        navigate('/about');
     }
     const onShoppingCartClick = () => {
-        Redirect('/cart', cartData);
+        navigate('/cart', {state:userData});
     }
 
     return(
