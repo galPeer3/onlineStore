@@ -1,11 +1,11 @@
-import { styles } from './login-component-styles';
+import { styles } from './register-component-styles';
 import { useState } from 'react';
 import {Redirect} from "../service/Redirect";
 import { useNavigate } from "react-router-dom";
 import { HomeComponent } from '../home-page/home-component';
 import { Navigate } from 'react-router-dom';
 
-export function LoginComponent(props) {
+export function RegisterComponent(props) {
     const {changeIsAuth} = props;
     const navigate = useNavigate();
 
@@ -18,16 +18,12 @@ export function LoginComponent(props) {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     }
-    const tdry = () => {
-        changeIsAuth(true);
-        navigate('/home', {state:{name: name, password: password}});
+    const handleLoginPageButton = () => {
+        navigate('/login', {replace:true});
     }
-    const handleRegisterPageButton = () => {
-        navigate('/register', {replace:true});
-    }
-    const login = async () => {
+    const register = async () => {
         const userData = {name: name, password: password};
-        const url = '/login';
+        const url = '/register';
 
         const response = await fetch(url, {
             method: 'POST',
@@ -36,8 +32,8 @@ export function LoginComponent(props) {
 
           response.then((response) => response.json())
           .then((data) => {
-            //cookie = data.cookie...
-            navigate('/home', {state: data})
+            alert("You have register successfully! /n Go to login page.")
+            
             })
         .catch((error) => {
             alert(error);
@@ -46,7 +42,7 @@ export function LoginComponent(props) {
 
     return (
         <div style={styles.Page}>
-            <h1 style={styles.Title}>Welcome Back!</h1>
+            <h1 style={styles.Title}>Welcome!</h1>
             <div style={styles.userDetails}>
             <label>
                 User Name:
@@ -57,8 +53,8 @@ export function LoginComponent(props) {
                 <input style={styles.Password} type="text" value={password} onChange={handlePasswordChange}  />
             </label>
 
-            <button style={styles.LoginButton} onClick={tdry}>Login</button>
-            <button style={styles.LoginButton} onClick={handleRegisterPageButton}>Register Page</button>
+            <button style={styles.RegisterButton} onClick={register}>Register</button>
+            <button style={styles.RegisterButton} onClick={handleLoginPageButton}>Login Page</button>
             </div>
         </div>
 
