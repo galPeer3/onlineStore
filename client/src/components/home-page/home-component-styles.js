@@ -1,3 +1,5 @@
+import { color } from "@mui/system";
+
 export const styles = {
 ImageCard: {
     width: "80%",
@@ -10,10 +12,19 @@ ImageTitle: {
     textAlign: "center",
     padding: "10px 20px"
   },
-ListContainer: {
-    width: "500px",
-    height: "500px",
+Container: {
     display: "flex",
+    flexDirection: "row",
     justifyContent: "center"
-  }
+  },
+Title: {
+  fontWeight: 1000,
+  fontSize: "100px",
+  color: "blue",
+  display: "flex",
+  justifyContent:"center"
+},
+ Page: {
+  backgroundColor:"pink"
+ }
 };

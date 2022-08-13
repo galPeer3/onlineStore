@@ -9,11 +9,11 @@ export const styles = {
   },
   button: {
     cursor: "pointer",
-    marginTop: "10px",
-    marginBottom: "10px",
-    fontWeight: 600,
+    marginTop: "30px",
+    marginBottom: "80px",
+    fontWeight: 800,
     width: "60px",
     border: "2px solid black",
-    borderRadius: "5px",
+    borderRadius: "20px",
   }
 };
