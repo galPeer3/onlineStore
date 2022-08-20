@@ -1,16 +1,16 @@
 const Router = require('express')
 const router = new Router()
-const userController = require('../controllers/user')
+const user = require('../controllers/user')
 // const authMiddleware = require('../middleware/authMiddleware')
 
-router.post('/register', userController.register)
-router.post('/login', userController.login)
-// router.get('/auth', authMiddleware, user.js.check)
+router.post('/register', user.register)
+router.post('/login', user.login)
+router.get('/auth', authMiddleware, user.check)
 
 module.exports = router
 
 
-userRouter.post("/api/login", (req, res) => {
+router.post("/login", (req, res) => {
     const username = req.body.username;
     const validationResult = validateUnecryptedPassword(
         username,
