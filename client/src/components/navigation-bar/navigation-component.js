@@ -10,6 +10,7 @@ export function NavigationComponent(props) {
         navigate('/home', {state:userData}); //userDate = {name:name, password:password}
     }
     const onLogoutClick = () => {
+        localStorage.setItem('auth', "false");
         navigate('/login', {replace:true});
     }
     const onAboutClick = () => {
