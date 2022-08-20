@@ -1,7 +1,7 @@
 "use strict";
 import JSON5 from "json5";
 import fs from "fs";
-const dataService = require('server/data-service/date-service');
+const dataService = require('server/data-service/dataService.js');
 const USER_ACTIVITY = "server/data/usersActivities.json5";
 const USERS_DETAILS = "server/data/users.json5";
 const PRODUCTS_PATH = "server/data/products.json5";
