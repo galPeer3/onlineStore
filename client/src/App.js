@@ -9,7 +9,12 @@ import { LoginComponent } from './components/login-page/login-component';
 import { NavigationComponent } from './components/navigation-bar/navigation-component';
 import { HomeComponent } from './components/home-page/home-component';
 import {RegisterComponent} from './components/register-page/register-component';
-
+import { SoccerComponent } from './components/home-page/soccer-component';
+import { BasketballComponent } from './components/home-page/basketball-component';
+import { MartialArtsComponent } from './components/home-page/martial-arts';
+import { WaterSportComponent } from './components/home-page/water-sport';
+import { CyclingComponent } from './components/home-page/cycling-component';
+import { Basketball, Soccer, WaterSport,MartialArts, Cycling, Fitness } from './components/home-page/home-categories-service';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -19,15 +24,21 @@ function App() {
   };
 
   useEffect(()=>{
-    localStorage.setItem("auth", JSON.stringify(isAuth));
-  }, [isAuth]);
+  }, [localStorage]);
 
   return (
     <BrowserRouter>
     <Routes>
       <Route path="/login" element={<LoginComponent changeIsAuth={changeIsAuth} />} />
       <Route path="/register" element={<RegisterComponent changeIsAuth={changeIsAuth} />} />
-      <Route path="/home" element= {isAuth? <HomeComponent />:<Navigate to="/login" replace={true} />} />
+      <Route path="/home" element= {localStorage.getItem('token') == "true"? <HomeComponent />:<Navigate to="/login" replace={true} />} />
+      <Route path="/home/soccer" element= {localStorage.getItem('auth') == "true"? Soccer():<Navigate to="/login" replace={true} />} />
+      <Route path="/home/basketball" element= {localStorage.getItem('auth') == "true"? Basketball():<Navigate to="/login" replace={true} />} />
+      <Route path="/home/watersport" element= {localStorage.getItem('auth') == "true"? WaterSport():<Navigate to="/login" replace={true} />} />
+      <Route path="/home/martialarts" element= {localStorage.getItem('auth') == "true"? MartialArts():<Navigate to="/login" replace={true} />} />
+      <Route path="/home/cycling" element= {localStorage.getItem('auth') == "true"? Cycling():<Navigate to="/login" replace={true} />} />
+      <Route path="/home/fitness" element= {localStorage.getItem('auth') == "true"? Fitness():<Navigate to="/login" replace={true} />} />
+
     </Routes>
   </BrowserRouter>
   );

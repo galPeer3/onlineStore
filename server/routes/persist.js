@@ -16,7 +16,6 @@ const productRecord = (productId, productTitle, productCategory, productImage, p
         category: productCategory,
         image: productImage,
         price: productPrice,
-        isInStock: isInStock,
         description: productDescription,
     };
 }
