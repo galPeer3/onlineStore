@@ -6,7 +6,7 @@ import { HomeComponent } from '../home-page/home-component';
 import { Navigate } from 'react-router-dom';
 
 export function RegisterComponent(props) {
-    const {changeIsAuth} = props;
+    localStorage.setItem('auth', "false");
     const navigate = useNavigate();
 
     const [name, setName] = useState("");

@@ -10,6 +10,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 
@@ -59,15 +60,14 @@ export function HomeComponent(props) {
           
           <ImageListItemBar
             title={product.name}
-            position={"below"}
+            position={"bottom"}
             subtitle={`${product.price}$`}
             actionIcon={
               <IconButton
                 sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                 //onClick={(product) => addItemToCart(product)}
               >
-                Add 
-                <AddCircleIcon />
+                <AddShoppingCartIcon />
               </IconButton>
             }
           />
