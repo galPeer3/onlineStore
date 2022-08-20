@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/galPeer3/onlineStore#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "node": "^18.7.0"
   }
