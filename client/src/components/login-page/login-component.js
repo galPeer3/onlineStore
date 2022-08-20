@@ -6,7 +6,6 @@ import { HomeComponent } from '../home-page/home-component';
 import { Navigate } from 'react-router-dom';
 
 export function LoginComponent(props) {
-    const {changeIsAuth} = props;
     const navigate = useNavigate();
 
     const [name, setName] = useState("");
@@ -19,7 +18,7 @@ export function LoginComponent(props) {
         setPassword(event.target.value);
     }
     const tdry = () => {
-        changeIsAuth(true);
+        localStorage.setItem('auth', "true");
         navigate('/home', {state:{name: name, password: password}});
     }
     const handleRegisterPageButton = () => {
