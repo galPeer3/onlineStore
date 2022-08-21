@@ -16,6 +16,10 @@ class errorHandler extends Error{
     static forbidden(message) {
         return new errorHandler(403, "403 " + message);
     }
+
+    static succeed(message) {
+        return new errorHandler(200, "200 " + message);
+    }
 }
 
-module.exports = ApiError
+module.exports = errorHandler
