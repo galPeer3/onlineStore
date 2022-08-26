@@ -1,3 +1,6 @@
+const fs = require("fs"); 
+
+
 export const getUserByEmail = async (email) => {
    const users = JSON5.parse(fs.readFileSync("/server/data/users.json"));
    return users.find((user) => user.email == email);

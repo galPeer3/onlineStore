@@ -1,13 +1,16 @@
 import {insertIntoUsersDetails, insertIntoActivitiesOfUsers} from "../persist";
 import {getUserByEmail} from "../data-service/dataService";
+import ShoppingCartController from "./shoppingCart";
 const errorHandler = require('././Errors/errorsHandler');
 const admin = require('../persist.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 const dataService = require('server/data-service/dataService');
-
+ 
 class UserController {
+    cartController = new ShoppingCartController();
+
     async register(req, res, next) {
         const {email, password} = req.body
         if (!email || !password) {
@@ -73,11 +76,10 @@ class UserController {
     }
 
     async removeFromCart(req,res,next) {
-
     }
 
     async checkout(req,res,next){
-
+        return await cartController.getUserShoppingCart(req, res, next);
     }
 
 

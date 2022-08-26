@@ -12,23 +12,17 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-
+import BasicCard from "./card-component";
 
 export function HomeComponent(props) {
     const navigate = useNavigate();
     const {state} = useLocation(); // state holds the user data(so we can retrieve its cart)
-   const data =     [   {name: "ball", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085", price: 30}, 
-                        {name: "gloves", img: "https://media.4rgos.it/s/Argos/9203547_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true", price: 10},
-                        {name: "shirt", img: "https://i5.walmartimages.com/asr/63a71d5d-b2be-4e0a-8610-c9a0db70c439.80ee420a650303eed04c45c4793162c5.jpeg?odnHeight=580&odnWidth=580&odnBg=FFFFFF", price: 50},
-                        {name: "shoes", img: "https://canary.contestimg.wish.com/api/webimage/5d89832baaf8240829e721e1-large.jpg?cache_buster=1ab0b6eaaa4634cc9fe3cdea410c3c86", price: 300},
-                        {name: "ball", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085", price: 30}, 
-                        {name: "gloves", img: "https://media.4rgos.it/s/Argos/9203547_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true", price: 10},
-                        {name: "shirt", img: "https://i5.walmartimages.com/asr/63a71d5d-b2be-4e0a-8610-c9a0db70c439.80ee420a650303eed04c45c4793162c5.jpeg?odnHeight=580&odnWidth=580&odnBg=FFFFFF", price: 50},
-                        {name: "shoes", img: "https://canary.contestimg.wish.com/api/webimage/5d89832baaf8240829e721e1-large.jpg?cache_buster=1ab0b6eaaa4634cc9fe3cdea410c3c86", price: 300},
-                        {name: "ball", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085", price: 30}, 
-                        {name: "gloves", img: "https://media.4rgos.it/s/Argos/9203547_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true", price: 10},
-                        {name: "shirt", img: "https://i5.walmartimages.com/asr/63a71d5d-b2be-4e0a-8610-c9a0db70c439.80ee420a650303eed04c45c4793162c5.jpeg?odnHeight=580&odnWidth=580&odnBg=FFFFFF", price: 50},
-                        {name: "shoes", img: "https://canary.contestimg.wish.com/api/webimage/5d89832baaf8240829e721e1-large.jpg?cache_buster=1ab0b6eaaa4634cc9fe3cdea410c3c86", price: 300}
+   const data =     [   {name: "Soccer", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085"}, 
+                        {name: "Basketball", img: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png?20060129155432"},
+                        {name: "Fitness", img: "https://m.media-amazon.com/images/I/91e89XFkCKL._AC_SX425_.jpg"},
+                        {name: "Water sport", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Za7q1Z1n6wDFG-eROUiCn4sHbe-zbooK8A&usqp=CAU"},
+                        {name: "Cycling", img: "https://surlybikes.com/uploads/bikes/surly-wednesday-fat-bike-green-BK7965-800x600.jpg"}, 
+                        {name: "Material Arts", img: "https://ae05.alicdn.com/kf/HLB1g3krXkCy2eVjSZSyq6xukVXan/Karate-Sports-Shaolin-Martial-Arts-Fun-Decal-Style-Accessories-Decorative-Vinyl-Accessories.jpg"},
                     ];
     
 //const addItemToCart = async (product) => {
@@ -47,34 +41,12 @@ export function HomeComponent(props) {
   //         alert(error);
   //         });
   // };
-    const listItems = <ImageList sx={{ width: 900, height: 600}} cols={3} rowHeight={160}  gap={100}>
-
-      {data.map((product) => (
-        <ImageListItem sx={{ maxWidth: "200px", maxHeight: "200px", marginBottom:"5px", marginRight:"5px"}} key={product.img} cols={1}>
-          <img
-            src={`${product.img}?w=200&fit=crop&auto=format`}
-            srcSet={`${product.img}?w=200&fit=crop&auto=format&dpr=2 2x`}
-            alt={product.name}
-            loading="lazy"
-          />
-          
-          <ImageListItemBar
-            title={product.name}
-            position={"bottom"}
-            subtitle={`${product.price}$`}
-            actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                //onClick={(product) => addItemToCart(product)}
-              >
-                <AddShoppingCartIcon />
-              </IconButton>
-            }
-          />
-        </ImageListItem>
-      ))}
-    </ImageList>
-    //const homeData = fetchHomeData();
+let index = 0;
+      const list = data.map((product) => (
+          <BasicCard src={product.img} name={product.name}/>
+      ));
+      
+         //const homeData = fetchHomeData();
 
     // const fetchHomeDate = async () => {
     //     const url = '/home';
@@ -101,7 +73,7 @@ export function HomeComponent(props) {
         </div>
         <div style={styles.Container}>
             <NavigationComponent />
-            {listItems}
+            {list}
             
         </div>
         </div>

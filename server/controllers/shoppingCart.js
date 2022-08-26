@@ -5,7 +5,7 @@ import {getUserCart, getUserByEmail, getAllProducts} from "server/data-service/d
 class ShoppingCartController {
 
     async getUserShoppingCart(req, res, next){
-       decoded = jwt.verify(req.body);
+       decoded = jwt.verify(req.header);
 
        const {email, password} = decoded;
         const user = await getUserByEmail(email);
@@ -22,6 +22,22 @@ class ShoppingCartController {
 
         return userCart; 
     }
+
+    async removeProductFromCart(req, res, next) {
+       const userCart = await getUserShoppingCart(req, res, next);
+       const productToRemove = req.body;
+       
+       userCart.filter((product) => product["id"] != productToRemove.id);
+//needs to replace the current cart how???
+    }
+
+    async addProductFromCart(req, res, next) {
+        const userCart = await getUserShoppingCart(req, res, next);
+        const productToAdd = req.body;
+        
+        userCart.push(productToAdd);
+ //needs to replace the current cart how???
+     }
 }
 
 module.exports = new ShoppingCartController();

@@ -15,7 +15,8 @@ ImageTitle: {
 Container: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
+    maxWidth: 1200
   },
 Title: {
   fontWeight: 1000,
@@ -25,6 +26,7 @@ Title: {
   justifyContent:"center"
 },
  Page: {
-  backgroundColor:"pink"
+ },
+ Card: {
  }
 };
