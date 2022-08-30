@@ -3,13 +3,12 @@ import { useState } from 'react';
 import {Redirect} from "../service/Redirect";
 import { useNavigate } from "react-router-dom";
 import { HomeComponent } from '../home-page/home-component';
-import { Navigate } from 'react-router-dom';
 
 export function LoginComponent(props) {
     const navigate = useNavigate();
-
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState("");
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -24,6 +23,7 @@ export function LoginComponent(props) {
     const handleRegisterPageButton = () => {
         navigate('/register', {replace:true});
     }
+
     const login = async () => {
         const userData = {name: name, password: password};
         const url = '/login';
@@ -58,6 +58,16 @@ export function LoginComponent(props) {
 
             <button style={styles.LoginButton} onClick={tdry}>Login</button>
             <button style={styles.LoginButton} onClick={handleRegisterPageButton}>Register Page</button>
+                <div>
+                    <label htmlFor="remember_me">
+                        Remember me{" "}
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            onChange={(e) => setRememberMe(e.target.value)}
+                        ></input>
+                    </label>
+                </div>
             </div>
         </div>
 
