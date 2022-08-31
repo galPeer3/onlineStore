@@ -9,7 +9,7 @@ router.get('/basketball', productsController.getBasketballData)
 router.get('/watersport', productsController.getWaterSportData)
 router.get('/fitness', productsController.getFitnessData)
 router.get('/cycling', productsController.getCyclingData)
-router.get('/martialArts', productsController.getMartialArtsData)
+router.get('/martialarts', productsController.getMartialArtsData)
 
 
 
