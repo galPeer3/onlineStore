@@ -1,32 +1,38 @@
-const dotenv = require('dotenv');
-const express = require ("express");
-const routes = require ("./routes/routes.js");
-const path = require('path');
-const { getAllProducts } = require ("./persist.js");
+import express from "express";
+import routes from "./routes/routes.js";
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import dotenv from "dotenv";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+dotenv.config();
+
 const port = process.env.PORT || 5000;
 
 
 const app = express();
+// app.use(bodyParser.urlencoded({
+//     extended: true
+// }));
+app.use(bodyParser.json());
+
 app.use('/api', routes);
 
-app.get("/api/products/:id", (req, res) => {
-    const data = getAllProducts();
-    const product = data.find((x) => x._id === req.params.id);
-    if (product) {
-        res.send(product);
-    } else {
-        res.status(404).send({ message: "Product Not Found" });
-    }
-});
-
-app.get("/api/products", (req, res) => {
-    const data = getAllProducts();
-    res.send(data);
-});
 
 app.get("/", (req, res) => {
     res.send("Server is ready");
 });
+
+
+
+
+
+
+
 
 app.listen(port, () => {
     console.log(`Server is listening to port ${port}`);

@@ -1,22 +1,38 @@
-import {insertIntoUsersDetails, insertIntoActivitiesOfUsers} from "../persist";
-import {getUserByEmail} from "../data-service/dataService";
-import ShoppingCartController from "./shoppingCart";
-const errorHandler = require('././Errors/errorsHandler');
-const admin = require('../persist.js');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const saltRounds = 10;
-const dataService = require('server/data-service/dataService');
- 
-class UserController {
-    cartController = new ShoppingCartController();
+import {removeProduct, insertIntoUsersDetails, insertIntoActivitiesOfUsers, insertNewProductIntoProducts} from  "../persist.js";
+import {getUserByEmail, getUserActivities, checkIfAdmin} from "../data-service/dataService.js";
 
-    async register(req, res, next) {
+import errorHandler from '../Errors/errorsHandler.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+const saltRounds = 10;
+import {removeProductFromCart, getUserShoppingCart, addProductToCart} from './shoppingCart.js';
+
+
+    export async function authenticateUser(req, next) {
+        const {access_token} = req.cookies;
+
+        const decoded = jwt.verify(access_token);
+
+        const {email, password} = decoded;
+         const user = await getUserByEmail(email);
+         if (!user) {
+             return next(errorHandler.notFound("Email doesn't exist is the system"));
+         }
+ 
+         let checkPassword = bcrypt.compareSync(password, user.password);
+         if (!checkPassword) {
+             return next(errorHandler.notFound("Incorrect password"));
+         }
+
+         return user;
+    }
+
+    export async function register(req, res, next) {
         const {email, password} = req.body
         if (!email || !password) {
             return next(errorHandler.notFound("Missing email or password"));
         }
-        const user = await dataService.getUserByEmail(email);
+        const user = await getUserByEmail(email);
         if (user) {
             return next(errorHandler.notFound("This email already exists"))
         }
@@ -25,13 +41,14 @@ class UserController {
         insertIntoUsersDetails(email, hashPassword);
 
         return ;
-        // const exp = rememberMe ? "10 days" : 30
-        // return res.json(generateToken(exp, user.id, user.email, user.role));
+
     }
 
-    async login(req, res, next) {
+    export async function login(req, res, next) {
+        console.log(req)
         const {email, password, rememberMe} = req.body;
-        const user = await dataService.getUserByEmail(email);
+        console.log(email);
+        const user = await getUserByEmail(email);
         if (!user) {
             let message = "Email doesn't exist is the system";
             insertIntoActivitiesOfUsers("Login", email, message);
@@ -43,52 +60,88 @@ class UserController {
             insertIntoActivitiesOfUsers("Login", user.email, message);
             return next(errorHandler.internalServer(message));
         }
-        const isAdmin = dataService.checkIfAdmin(email);
+        const isAdmin = checkIfAdmin(email);
         const exp = rememberMe ? "10 days" : 30
         insertIntoActivitiesOfUsers("Login", user.email, "Login succeed");
-        return res.json(generateToken(exp, user.email, isAdmin));
+
+        const token =  json(generateToken(exp, user.email, isAdmin));
+        const cookiesOptions = {httpOnly: true, maxAge: rememberMe ? 10*24*60*60 : 30*60 }
+
+        res.cookie("access_token", token, cookiesOptions);
+
+        return isAdmin;
+
     }
 
-    async logout(req,res) {
-        const {token,email} = req.body;
-        localStorage.removeItem('token'); //not done
+    export async function logout(req,res) {
+        res.clearCookie("access_token");
         insertIntoActivitiesOfUsers("Logout", email, "Logout Success");
         res.status(200).send();
     }
 
-    async userActivities(req, res) {
-        await dataService.getUserActivities();
+    export async function userActivities(req, res) {
+        await getUserActivities();
         res.status(200).send();
     }
 
-    async addProduct(req, res){
+    export async function addProduct(req, res){
+        const user = await authenticateUser(req, next);
+
+        const {isAdmin} = user;
+
+        if(!isAdmin) {
+            return next(errorHandler.forbidden("Not an Admin"));
+        }
+
         const {productTitle, productCategory, productImage, productPrice, productDescription} = req.body
-        admin.insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription);
+        insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription);
         res.status(200).send();
     }
 
-    async shoppingCart(req,res){
+    export async function deleteProduct(req, res){
+        const user = await authenticateUser(req, next);
+
+        const {isAdmin} = user;
+
+        if(!isAdmin) {
+            return next(errorHandler.forbidden("Not an Admin"));
+        }
+
+        const {productTitle, productCategory, productImage, productPrice, productDescription} = req.body
+        removeProduct(productTitle, productCategory, productImage, productPrice, productDescription);
+        res.status(200).send();
+    }
+    export async function shoppingCart(req,res){
 
     }
 
-    async addToCart(req, res, next) {
-
+    export async function addToCart(req, res, next) {
+        return await addProductToCart(req, res, next);
     }
 
-    async removeFromCart(req,res,next) {
+    export async function removeFromCart(req,res,next) {
+        return await removeProductFromCart(req, res, next);
     }
 
-    async checkout(req,res,next){
-        return await cartController.getUserShoppingCart(req, res, next);
+    export async function checkout(req,res,next){
+        const userCart =  await getUserShoppingCart(req, res, next);
+
+        let totalPrice = 0;
+
+        userCart.forEach(element => {
+            totalPrice+= element.price;
+        });
+
+        return totalPrice;
     }
 
 
 
-    async check(req, res, next) {
+    export async function check(req, res, next) {
         // const exp = req.body.rememberMe ? "10 days" : 30
         // return res.json(generateToken(exp, req.user.id, req.user.email, req.user.role));
     }
-}
+
 
 const generateToken = (exp, email, isAdmin) => {
     return jwt.sign(
@@ -99,4 +152,3 @@ const generateToken = (exp, email, isAdmin) => {
 }
 
 
-module.exports = new UserController();

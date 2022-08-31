@@ -26,11 +26,11 @@ export function HomeComponent(props) {
                     ];
     
 //const addItemToCart = async (product) => {
-  //     const url = '/cart/add';
+  //     const url = 'api/user/addToCart';
          
   //     const response = await fetch(url, {
   //         method: 'POST',
-  //         body: JSON.stringify({userData, product})
+  //         body: JSON.stringify({ product })
   //       });
 
   //       response.then((response) => response.json())
@@ -38,7 +38,7 @@ export function HomeComponent(props) {
   //         alert("The item has been added");
   //         })
   //     .catch((error) => {
-  //         alert(error);
+  //           navigate('/login', {replace:true});
   //         });
   // };
 let index = 0;
@@ -49,11 +49,11 @@ let index = 0;
          //const homeData = fetchHomeData();
 
     // const fetchHomeDate = async () => {
-    //     const url = '/home';
+    //     const url = '/products';
            
     //     const response = await fetch(url, {
     //         method: 'POST',
-    //         body: JSON.stringify(userData)
+    //     
     //       });
 
     //       response.then((response) => response.json())

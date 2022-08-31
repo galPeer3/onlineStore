@@ -1,21 +1,24 @@
-const Router = require('express');
-const router = new Router();
-const user = require('../controllers/user');
-const admin = require("../controllers/admin");
-// const authMiddleware = require('../middleware/authMiddleware')
+import express from "express";
 
-router.post('/register', user.register);
-router.post('/login', user.login);
-router.get('/logout', user.logout);
-router.get('/cart', user.shoppingCart);
-router.post('/addToCart', user.addToCart);
-router.post('/removeFromCart', user.removeFromCart);
-router.post('/checkout', user.checkout);
-router.post('/adminScreen/addProduct', user.addProduct);
-router.get('/adminScreen/userActivities', user.userActivities);
-router.get('/adminScreen', user.adminScreen);
+import Router from 'express';
+const userRouter = new Router();
+import {register, logout, login, shoppingCart, addToCart, removeFromCart, checkout, addProduct, deleteProduct, userActivities} from '../controllers/user.js';
+// const authMiddleware = require('../middleware/authMiddleware')
+userRouter.use(express.json());
+
+userRouter.post('/register', register);
+userRouter.post('/login', login);
+userRouter.get('/logout', logout);
+userRouter.get('/cart', shoppingCart);
+userRouter.post('/addToCart', addToCart);
+userRouter.post('/removeFromCart', removeFromCart);
+userRouter.post('/checkout', checkout);
+userRouter.post('/adminScreen/addProduct', addProduct);
+userRouter.post('/adminScreen/removeProduct', deleteProduct);
+userRouter.get('/adminScreen/userActivities', userActivities);
+//userRouter.get('/adminScreen', user.adminScreen);
 
 // router.get('/auth', authMiddleware, user.check)
 
 
-module.exports = router
+export default userRouter;
