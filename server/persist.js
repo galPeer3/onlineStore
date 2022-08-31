@@ -15,26 +15,26 @@ const PURCHASES_PATH = "./data/purchases.json5";
 
 export function insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription) {
     const allProducts = JSON5.parse(fs.readFileSync(PRODUCTS_PATH));
-    const categoryIndex = products.indexOf((category) => category['name'] == categoryName);
+    const categoryIndex = allProducts.indexOf((category) => category['name'] == productCategory);
     let newProductRecord = {_id: getHighestProductIdByCategory() + 1,
         title: productTitle,
         category: productCategory,
         image: productImage,
         price: productPrice,
         description:productDescription};
-    allProducts[categoryIndex].products.push(newProductRecord);
+    allProducts[categoryIndex].push(newProductRecord);
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(allProducts));
 }
 
 export function removeProduct(productTitle, productCategory, productImage, productPrice, productDescription) {
     const allProducts = JSON5.parse(fs.readFileSync(PRODUCTS_PATH));
-    const categoryIndex = products.indexOf((category) => category['name'] == categoryName);
-    allProducts[categoryIndex].products.filter((product)=>product.title != title );
+    const categoryIndex = allProducts.indexOf((category) => category['name'] == productCategory);
+    allProducts[categoryIndex].filter((product)=>product.title != productTitle );
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(allProducts));
 }
 
-export function insertIntoActivitiesOfUsers(activity, email, message){ //login,logout,add-to-cart
-    const activitiesOfUsers = JSON5.parse(fs.readFileSync(USER_ACTIVITY));
+export function insertIntoUsersActivities(activity, email, message){ //login,logout,add-to-cart
+    const activitiesOfUsers = JSON5.parse(fs.readFileSync(USERS_ACTIVITY));
     let newActivityRecord = {activity: activity,
                             date: new Date(),
                             email: email,
@@ -80,17 +80,17 @@ export function deleteCartByUserEmail(email) {
     fs.writeFileSync(CART_PATH, JSON5.stringify(allCarts));
 }
 
- export function insertPaymentMethod(username, paymentMethod) {
-    const ShippingDetails = JSON5.parse(
-        fs.readFileSync(USER_SHIPPING_DATA_FILE_PATH)
-    );
-    ShippingDetails[username]["PaymentMethod"] = paymentMethod;
-
-    fs.writeFileSync(
-        USER_SHIPPING_DATA_FILE_PATH,
-        JSON5.stringify(ShippingDetails, null, 2)
-    );
-}
+//  export function insertPaymentMethod(username, paymentMethod) {
+//     const ShippingDetails = JSON5.parse(
+//         fs.readFileSync(USER_SHIPPING_DATA_FILE_PATH)
+//     );
+//     ShippingDetails[username]["PaymentMethod"] = paymentMethod;
+//
+//     fs.writeFileSync(
+//         USER_SHIPPING_DATA_FILE_PATH,
+//         JSON5.stringify(ShippingDetails, null, 2)
+//     );
+// }
 
 
 

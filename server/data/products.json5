@@ -95,7 +95,7 @@
                             "category": "Cycling",
                             "image": "./Images/cycling/2slash3-300-tailgate.jpeg",
                             "price": "450",
-                            "description": "proffessional taligate"
+                            "description": "professional tailgate"
                         },
                         {
                             "_id": 2,
@@ -272,5 +272,288 @@
                             "description": "variaty of dumbbells"
                         }
                     ]
-    }
+    },
+    {
+      "_id": 4,
+      "name": "Martial Arts",
+      "products": [
+                    {
+                      "_id": 1,
+                      "title": "Boxing gloves - red",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/100-.jpeg",
+                      "price": "200",
+                      "description": "Red professional boxing gloves"
+                    },
+                    {
+                      "_id": 2,
+                      "title": "Karate uniform - white belt",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/100-adult-karate-uniform.jpeg",
+                      "price": "240",
+                      "description": "full karate-uniform for adults"
+                    },
+                    {
+                      "_id": 3,
+                      "title": "Boxing gloves - black",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/120-.jpeg",
+                      "price": "200",
+                      "description": "Black professional boxing gloves"
+                    },
+                    {
+                      "_id": 4,
+                      "title": "Karate uniform - blue belt",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/500-adult-karate-uniform.jpeg",
+                      "price": "220",
+                      "description": "full karate-uniform for adults"
+                    },
+                    {
+                      "_id": 5,
+                      "title": "Punching bag",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/500-angle.jpeg",
+                      "price": "500",
+                      "description": "Punching bag 500 angle - burgundy"
+                    },
+                    {
+                      "_id": 6,
+                      "title": "Karate foot guard",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/900-slash-.jpeg",
+                      "price": "230",
+                      "description": "Karate foot guard 900"
+                    },
+                    {
+                      "_id": 7,
+                      "title": "Boxing headguard",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/-900.jpeg",
+                      "price": "160",
+                      "description": "Bar-faced open boxing headguard 900"
+                    },
+                    {
+                      "_id": 8,
+                      "title": "Punch-ball-black",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/adjustable-adult-punch-ball-black.jpeg",
+                      "price": "70",
+                      "description": "adjustable adult punch ball"
+                    },
+                    {
+                      "_id": 9,
+                      "title": "Boxing mouth-guard",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/rl-500-.jpeg",
+                      "price": "70",
+                      "description": "boxing mouth-guard size s - grey"
+                    },
+                    {
+                      "_id": 10,
+                      "title": "groin guard slipee",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/men-sslashkids-groin-guard-slipee-100-white.jpeg",
+                      "price": "50",
+                      "description": "Men's/kids' groin guard slipee 100 - white"
+                    },
+                    {
+                      "_id": 11,
+                      "title": "Punching bag 850",
+                      "category": "Martial Arts",
+                      "image": "./Images/martial arts/pb-850-.jpeg",
+                      "price": "225",
+                      "description": "Punching bag 850 - red"
+                    }
+      ]
+    },
+  {
+        "_id": 5,
+        "name": "Soccer",
+        "products": [
+                    {
+                      "_id": 1,
+                      "title": "Soft wrist support",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/300-slash-slash.jpeg",
+                      "price": "100",
+                      "description": "Soft 300 men's/women's left/right wrist support - black"
+                    },
+                    {
+                      "_id": 2,
+                      "title": "Sports tank adult",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/-.jpeg",
+                      "price": "40",
+                      "description": "Sports tank adult - neon orange"
+                    },
+                    {
+                      "_id": 3,
+                      "title": "Adult shorts",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/Adult base layer shorts keepdry.jpeg",
+                      "price": "60",
+                      "description": "Adult base layer shorts"
+                    },
+                    {
+                      "_id": 4,
+                      "title": "Football shoes",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/agility-100-hg-adult-firm-pitch-football-boots-blackslashwhite.jpeg",
+                      "price": "250",
+                      "description": "adult firm pitch football shoes"
+                    },
+                    {
+                      "_id": 5,
+                      "title": "Kids' football shorts",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/f100-.jpeg",
+                      "price": "50",
+                      "description": "Kids' football shorts - black"
+                    },
+                    {
+                      "_id": 6,
+                      "title": "Hybrid size 4 football ball",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/f500-5-.jpeg",
+                      "price": "70",
+                      "description": "Hybrid football fifa basic size 4 - white/yellow"
+                    },
+                    {
+                      "_id": 7,
+                      "title": "Hybrid size 5 football ball",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/f500-5-98.jpeg",
+                      "price": "80",
+                      "description": "Hybrid size 5 football ball - orange/blue"
+                    },
+                    {
+                      "_id": 8,
+                      "title": "Goalkeeper gloves",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/f500-adult-football-goalkeeper-gloves-blueslashyellow.jpeg",
+                      "price": "70",
+                      "description": "adult football goalkeeper gloves"
+                    },
+                    {
+                      "_id": 9,
+                      "title": "Sports bag",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/prod.jpeg",
+                      "price": "50",
+                      "description": "sports bag essential - burgundy"
+                    },
+                    {
+                      "_id": 10,
+                      "title": "Football target practice banner",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/sg-500-football-target-practice-banner-size-m-180m-x-120m.jpeg",
+                      "price": "65",
+                      "description": "football target practice banner size m"
+                    },
+                    {
+                      "_id": 11,
+                      "title": "Football goal kage",
+                      "category": "Soccer",
+                      "image": "./Images/soccer/sg-500-m-.jpeg",
+                      "price": "225",
+                      "description": "Football goal kage - black/grey"
+                    }
+        ]
+      },
+  {
+    "_id": 6,
+    "name": "Watersport",
+    "products": [
+                {
+                  "_id": 1,
+                  "title": "Foam surfboard with 3 fins",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/100-foam-surfboard-7-supplied-with-a-leash-and-3-fins.jpeg",
+                  "price": "100",
+                  "description": "foam surfboard supplied with a leash and 3 fins"
+                },
+                {
+                  "_id": 2,
+                  "title": "Men's surfing long sleeve top",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/500-uv-.jpeg",
+                  "price": "40",
+                  "description": "Men's surfing long sleeve uv protection top t-shirt 500 - black"
+                },
+                {
+                  "_id": 3,
+                  "title": "Adult elasticated water shoes",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/aquashoes-120-.jpeg",
+                  "price": "60",
+                  "description": "Adult elasticated water shoes aquashoes - red"
+                },
+                {
+                  "_id": 4,
+                  "title": "kayak vest",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/ba-50n-dtc.jpeg",
+                  "price": "250",
+                  "description": "Newtons dtc kayak, stand up paddle or dinghy buoyancy vest"
+                },
+                {
+                  "_id": 5,
+                  "title": "Stand up paddle board",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/beginner-inflatable-touring-stand-up-paddle-board-11-feet-blue.jpeg",
+                  "price": "50",
+                  "description": "inflatable touring stand up paddle board"
+                },
+                {
+                  "_id": 6,
+                  "title": "Diving-mask",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/double-diving-mask-v2-scd-500-opaque-skirt-2021-blackslashturquoise.jpeg",
+                  "price": "70",
+                  "description": "double diving mask"
+                },
+                {
+                  "_id": 7,
+                  "title": "Face mask",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/easybreath-6-10-slash-xs.jpeg",
+                  "price": "80",
+                  "description": "easy breath face mask"
+                },
+                {
+                  "_id": 8,
+                  "title": "Foam-surfboard with 2 fins",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/foam-surfboard-900-5-4-supplied-with-2-fins.jpeg",
+                  "price": "70",
+                  "description": "Foam-surfboard supplied with 2 fins"
+                },
+                {
+                  "_id": 9,
+                  "title": "Inflatable kayak",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/inflatable-touring-kayak-2slash3-places-orange.jpeg",
+                  "price": "50",
+                  "description": "Inflatable touring kayak"
+                },
+                {
+                  "_id": 10,
+                  "title": "Swimming armbands for kids",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/quotequote-11-30-quote.jpeg",
+                  "price": "65",
+                  "description": "Swimming armbands with fabric interior for 15-30 kg kids"
+                },
+                {
+                  "_id": 11,
+                  "title": "Waterproof bag",
+                  "category": "Watersport",
+                  "image": "./Images/water sport/waterproof-dry-bag.jpeg",
+                  "price": "225",
+                  "description": "waterproof dry bag"
+                }
+              ]
+            }
+
 ]
