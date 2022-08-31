@@ -5,7 +5,6 @@ import { useParams, useLocation  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { LoginComponent } from "../login-page/login-component";
 import { styles } from "./home-component-styles";
-import $ from 'jquery';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
