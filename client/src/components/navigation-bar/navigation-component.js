@@ -22,29 +22,42 @@ export function NavigationComponent(props) {
     const navigate = useNavigate();
 
     const onHomeClick = () => {
-        navigate('/home',  {replace:true}); //userDate = {name:name, password:password}
+        navigate('/home',  {replace:true});
     }
-    const onLogoutClick = async () => {
-        localStorage.setItem('auth', "false");
-        navigate('/login', {replace:true});
-        const url = "api/user/logout";
-        const redirectUrl = "/login";
-        await fetch(url, redirectUrl);
-    }
+    const onLogoutClick = () => {
+        const response = fetch('api/user/logout', {
+
+            method: 'POST',
+             headers : {'Content-Type':'application/json',
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
+               },
+            body: JSON.stringify(localStorage.getItem('auth')) 
+          });
+          response.then((data) =>data.json())
+          .then((token) => {
+            localStorage.setItem('auth', null)
+            navigate('/login', {replace: true})
+            })
+            .catch((error) => {
+                alert("logout failed");
+                });
+            }
+  
     const onAboutClick = () => {
         navigate('/about');
     }
     const onShoppingCartClick = () => {
-        navigate('/cart', {state:userData});
+        navigate('/cart', {replace: true});
     }
     const onAddProductClick = () => {
-        navigate('/adminScreen/addProduct', {state:userData});
+        navigate('/adminScreen/addProduct', {replace: true});
     }
     const onRemoveProductClick = () => {
-        navigate('/adminScreen/removeProduct', {state:userData});
+        navigate('/adminScreen/removeProduct', {replace: true});
     }
     const onUserActivitiesClick = () => {
-        navigate('/adminScreen/userActivities', {state:userData});
+        navigate('/adminScreen/userActivities', {replace: true});
     }
 
     return (

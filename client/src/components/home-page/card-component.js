@@ -19,22 +19,22 @@ export function CardsComponent(props) {
     const navigate = useNavigate();
 
     const onBasketballClick = () => {
-    navigate('/basketball', {state:userData}); //userDate = {name:name, password:password}
+    navigate('/basketball', {replace: true}); //userDate = {name:name, password:password}
     }
     const onSoccerClick = () => {
-        navigate('/Soccer', {state:userData});
+        navigate('/Soccer', {replace: true});
     }
     const onCyclingClick = () => {
-        navigate('/Cycling', {state:userData});
+        navigate('/Cycling', {replace: true});
     }
     const onFitnessClick = () => {
-        navigate('/fitness', {state:userData});
+        navigate('/fitness', {replace: true});
     }
     const onMartialArtClick = () => {
-        navigate('/martialarts', {state:userData});
+        navigate('/martialarts', {replace: true});
     }
     const onWaterSportClick = () => {
-        navigate('/watersport', {state:userData});
+        navigate('/watersport', {replace: true});
     }
 
       return (
@@ -43,7 +43,7 @@ export function CardsComponent(props) {
             component="ul"
             sx={{ display: 'flex' , gap: 6, flexWrap: 'wrap', p: 0, m: 0, justifyContent: 'center' }}
         >
-            <Card component="li" onClick={onBasketballClick} sx={{height: 250, width: 250 }}>
+            <Card component="li" onClick={onBasketballClick} sx={{height: 250, width: 250, cursor: "pointer" }}>
                 <CardCover>
                     <img
                         src={basketballImage}
@@ -64,7 +64,7 @@ export function CardsComponent(props) {
                 </CardContent>
             </Card>
 
-              <Card component="li" onClick={onSoccerClick} sx={{height: 250, width: 250 }}>
+              <Card component="li" onClick={onSoccerClick} sx={{height: 250, width: 250, cursor: "pointer" }}>
                   <CardCover>
                       <img
                           src={soccerImage}
@@ -85,7 +85,7 @@ export function CardsComponent(props) {
                   </CardContent>
               </Card>
 
-              <Card component="li" onClick={onCyclingClick} sx={{height: 250, width: 250 }}>
+              <Card component="li" onClick={onCyclingClick} sx={{height: 250, width: 250, cursor: "pointer" }}>
                   <CardCover>
                       <img
                           src={cyclingImage}
@@ -106,7 +106,7 @@ export function CardsComponent(props) {
                   </CardContent>
               </Card>
 
-              <Card component="li" onClick={onWaterSportClick} sx={{height: 250, width: 250 }}>
+              <Card component="li" onClick={onWaterSportClick} sx={{height: 250, width: 250, cursor: "pointer" }}>
                   <CardCover>
                       <img
                           src={watersportImage}
@@ -127,7 +127,7 @@ export function CardsComponent(props) {
                   </CardContent>
               </Card>
 
-              <Card component="li" onClick={onMartialArtClick} sx={{height: 250, width: 250 }}>
+              <Card component="li" onClick={onMartialArtClick} sx={{height: 250, width: 250, cursor: "pointer" }}>
                   <CardCover>
                       <img
                           src={martialartImage}
@@ -148,7 +148,7 @@ export function CardsComponent(props) {
                   </CardContent>
               </Card>
 
-              <Card component="li" onClick={onFitnessClick} sx={{height: 250, width: 250 }}>
+              <Card component="li" onClick={onFitnessClick} sx={{height: 250, width: 250, cursor: "pointer" }}>
                   <CardCover>
                       <img
                           src={fitnessImage}

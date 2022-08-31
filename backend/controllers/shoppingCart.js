@@ -2,18 +2,16 @@ const JSON5 = require("json5");
 const jwt = require('jsonwebtoken');
 const {getUserCart, getUserByEmail, getAllProducts} = require ("../data-service/dataService.js");
 const {insertProductToUserCart, deleteProductFromUserCart} = require("../persist.js") ;
-const {authenticateUser} = require('./user');
 
- async function getUserShoppingCart(user){
+ async function getUserShoppingCart(req, user, next){
         const {email} = user;
 
-        const userCart = getUserCart(email) || [];
+        const userCart = await getUserCart(email) || [];
 
         return userCart; 
     }
 
-async function removeProductFromCart(req, res, next) {
-        const user = await authenticateUser(req, next);
+async function removeProductFromCart(req, user, next) {
         const {email} = user;
         const productToAdd = req.body;
         const {productId} = productToAdd;

@@ -53,9 +53,9 @@ function insertIntoUsersDetails(email, hashPassword, isAdmin){
 }
 
 
-function insertProductToUserCart(email, productId) {
+function insertProductToUserCart(email, id) {
     const allCarts = getAllCarts();
-    const productToAdd = getProductById(productId);
+    const productToAdd = getProductById(id);
     allCarts[email]["products"].push(productToAdd)
     fs.writeFileSync(CART_PATH, JSON5.stringify(allCarts));
 }
