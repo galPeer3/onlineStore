@@ -11,8 +11,15 @@ const {removeProductFromCart, getUserShoppingCart, addProductToCart} = require('
     async function authenticateUser(req, next) {
         //const {access_token} = req.cookies;
         const {token} = req.body;
-        
-        const decoded = jwt.verify(token, "secret_123456");
+        let decoded;
+        try{
+         decoded = jwt.verify(token, "secret_123456");
+        }
+        catch(error){
+            return next(errorHandler.notFound("invalid token"));
+
+        }
+
         
         const {email, password} = decoded;
          const user = await getUserByEmail(email);
@@ -28,7 +35,7 @@ const {removeProductFromCart, getUserShoppingCart, addProductToCart} = require('
          }
          
          return user;
-       
+        
     }
 
     async function register(req, res, next) {
@@ -116,17 +123,31 @@ const {removeProductFromCart, getUserShoppingCart, addProductToCart} = require('
         removeProduct(productTitle, productCategory, productImage, productPrice, productDescription);
         res.status(200).send();
     }
-    async function shoppingCart(req,res){
+    async function shoppingCart(req, res, next){
+        const user = await authenticateUser(req, next);
+        if(!user){
+            return next(errorHandler.notFound("user not found"));
+        }
 
+        const cart = await getUserShoppingCart(req, user, next);
+
+        return res.status(200).send(cart);
     }
 
     async function addToCart(req, res, next) {
         const user = await authenticateUser(req, next);
+        if(!user){
+            return next(errorHandler.notFound("user not found"));
+        }
         await addProductToCart(req, user);
     }
 
     async function removeFromCart(req,res,next) {
-        return await removeProductFromCart(req, res, next);
+        const user = await authenticateUser(req, next);
+        if(!user){
+            return next(errorHandler.notFound("user not found"));
+        }
+        return await removeProductFromCart(req, user, next);
     }
 
     async function checkout(req,res,next){

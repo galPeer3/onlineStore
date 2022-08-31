@@ -9,7 +9,7 @@ export function LoginComponent(props) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [rememberMe, setRememberMe] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -22,7 +22,7 @@ export function LoginComponent(props) {
         navigate('/register', {replace:true});
     }   
      const login = () => {
-        const userData = {"email": email, "password": password};
+        const userData = {"email": email, "password": password, rememberMe: rememberMe};
         const response = fetch('api/user/login', {
 
             method: 'POST',
@@ -64,7 +64,7 @@ export function LoginComponent(props) {
                         <input
                             type="checkbox"
                             id="rememberMe"
-                            onChange={(e) => setRememberMe(e.target.value)}
+                            onChange={(e) => setRememberMe(!rememberMe)}
                         ></input>
                     </label>
                 </div>

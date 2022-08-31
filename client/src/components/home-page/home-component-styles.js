@@ -93,12 +93,22 @@ export const styles = {
         fontSize: ".8em",
         color: "#444",
         position: "relative",
+        top:"30px"
     },
 
     SiteNav: {
         position: "absolute",
         top: 130,
         left: 0,
-        width: "100%"
+        width: "100%",
+       // zIndex: 3
     },
+
+    // Page: {
+    //     position: "fixed",
+    //     top: 0,
+    //     left: 0,
+    //     width: "100%",
+    //     zIndex: 3
+    // },
 };

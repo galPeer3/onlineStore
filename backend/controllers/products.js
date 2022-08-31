@@ -2,7 +2,8 @@ const {getAllProducts}  = require("../data-service/dataService.js");
 
 
      async function getCategoriesData(req, res, next) {
-        await getAllProducts();
+        const products = await getAllProducts();
+       res.status(200).send(products[1].products);
     }
 
      async function getSoccerData(req, res, next) {
@@ -11,23 +12,28 @@ const {getAllProducts}  = require("../data-service/dataService.js");
     }
 
      async function getBasketballData(req, res, next) {
-        return await getAllProducts()[0].products;
+        const products = await getAllProducts();
+       res.status(200).send(products[1].products);
     }
 
      async function getWaterSportData(req, res, next) {
-        return await getAllProducts()[2].products;
+        const products = await getAllProducts();
+       res.status(200).send(products[1].products);
     }
 
      async function getFitnessData(req, res, next) {
-        return await getAllProducts()[1].products;
+        const products = await getAllProducts();
+       res.status(200).send(products[1].products);
     }
 
      async function getCyclingData(req, res, next) {
-        return await getAllProducts()[1].products;
+        const products = await getAllProducts();
+        res.status(200).send(products[1].products);
     }
 
      async function getMartialArtsData(req, res, next) {
-        return await getAllProducts()[1].products;
+        const products = await getAllProducts();
+       res.status(200).send(products[1].products);
     }
 
 
