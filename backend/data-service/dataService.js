@@ -3,12 +3,12 @@ const JSON5 = require("json5");
 const path = require('path');
 
 const getUserByEmail = async (email) => {
-   const users = JSON5.parse(fs.readFileSync(path.join(__dirname, "../../backend/data/users.json")));
+   const users = JSON5.parse(fs.readFileSync(path.join(__dirname, "../../backend/data/users.json5")));
    const user = users.find((user) => user.email == email);
    return user;
 }
 const getUserActivities = async () => {
-    const usersActivities = JSON5.parse(fs.readFileSync("/server/data/usersActivities.json"));
+    const usersActivities = JSON5.parse(fs.readFileSync("/server/data/usersActivities.json5"));
     return usersActivities;
 }
 const getUserCart = async (email) => {
@@ -21,7 +21,7 @@ const getAllCarts = async () => {
     return carts;
 }
 const getAllPurchases = async () => {
-    const purchases = JSON5.parse(fs.readFileSync("/server/data/purchases.json"));
+    const purchases = JSON5.parse(fs.readFileSync("/server/data/purchases.json5"));
     return purchases;
 }
 const getPurchaseById = async (orderNumber) => {
@@ -29,21 +29,21 @@ const getPurchaseById = async (orderNumber) => {
     return purchases.find((purchase) => purchase["orderNumber"] == orderNumber);
 }
 const getAllUsers = async () => {
-    const users = JSON5.parse(fs.readFileSync("/server/data/users.json"));
+    const users = JSON5.parse(fs.readFileSync("/server/data/users.json5"));
     return users;
 }
 const getAllProducts = async () => {
-    const products = JSON5.parse(fs.readFileSync(path.join(__dirname, "../../backend/data/products.json")));
+    const products = JSON5.parse(fs.readFileSync(path.join(__dirname, "../../backend/data/products.json5")));
    return products;
 }
 
 const getProductById = async (id) => {
-    const products = JSON5.parse(fs.readFileSync("/server/data/products.json"));
+    const products = JSON5.parse(fs.readFileSync("/server/data/products.json5"));
     return products.find((product) => product["id"] == id);
 }
 
 const getHighestProductIdByCategory = async (categoryName) => {
-    const products = JSON5.parse(fs.readFileSync("/server/data/products.json"));
+    const products = JSON5.parse(fs.readFileSync("/server/data/products.json5"));
     const category = products.find((category) => category['name'] == categoryName);
     const categoryProducts = category.products;
 
@@ -57,7 +57,7 @@ const getHighestProductIdByCategory = async (categoryName) => {
 }
 
 const checkIfAdmin = async (email) => {
-    const users = JSON5.parse(fs.readFileSync(path.join(__dirname, "../../backend/data/users.json")));
+    const users = JSON5.parse(fs.readFileSync(path.join(__dirname, "../../backend/data/users.json5")));
     const user = users.find((user) => user.email == email);
 
     return user["isAdmin"];
