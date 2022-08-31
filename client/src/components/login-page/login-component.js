@@ -17,27 +17,29 @@ export function LoginComponent(props) {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     }
-    const tdry = () => {
-        localStorage.setItem('auth', "true");
-        navigate('/home', {state:{email: email, password: password}});
-    }
+
     const handleRegisterPageButton = () => {
         navigate('/register', {replace:true});
     }
-    const login = async () => {
-        const userData = {email: email, password: password};
-        const response = await fetch('http://localhost:5000/api/user/login', {
+    const login = () => {
+        const userData = {"email": email, "password": password};
+        const response = fetch('api/user/login', {
             method: 'POST',
-            params: JSON.stringify(userData) 
+             headers : {'Content-Type':'application/json',
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
+               },
+            body: JSON.stringify(userData) 
           });
-          response.then((response) => response.json())
-          .then((data) => {
-            localStorage.setItem('auth', response.cookies)
-            navigate('/home', {state: data})
+          response.then((data) =>data.json())
+          .then((token) => {
+            localStorage.setItem('auth', token)
+            navigate('/home', {replace: true})
             })
-        .catch((error) => {
-            alert(error);
-            });
+            .catch((error) => {
+                alert("invalid email or password");
+                });
+        
     };
 
     return (

@@ -25,12 +25,12 @@ function App() {
       <Route path="/login" element={<LoginComponent/>} />
       <Route path="/register" element={<RegisterComponent />} />
       <Route path="/home" element= {<HomeComponent />} />
-      <Route path="/home/soccer" element= {Soccer()} />
-      <Route path="/home/basketball" element= {Basketball()} />
-      <Route path="/home/watersport" element= {WaterSport()} />
-      <Route path="/home/martialarts" element= {MartialArts()} />
-      <Route path="/home/cycling" element= {Cycling()} />
-      <Route path="/home/fitness" element= {Fitness()} />
+      <Route path="/soccer" element= {Soccer()} />
+      <Route path="/basketball" element= {Basketball()} />
+      <Route path="/watersport" element= {WaterSport()} />
+      <Route path="/martialarts" element= {MartialArts()} />
+      <Route path="/cycling" element= {Cycling()} />
+      <Route path="/fitness" element= {Fitness()} />
 
     </Routes>
   </BrowserRouter>

@@ -1,0 +1,276 @@
+[  
+    { 
+        "_id": 1,
+        "name": "Basketball",
+        "products": [
+                        {
+                            "_id": 1,
+                            "title": "ball",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/aniball-k500-.jpeg",
+                            "price": "100",
+                            "description": "begginers ball"
+                        },
+                        {
+                            "_id": 3,
+                            "title": "balls",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/balls-cag.jpeg",
+                            "price": "450",
+                            "description": "coach balls kit"
+                        },
+                        {
+                            "_id": 4,
+                            "title": "flat markers",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/essential-pack-of-40-flat-markers-4-colours-yellow-orange-grey-blue.jpeg",
+                            "price": "200",
+                            "description": "colorfull flat markers"
+                        },
+                        {
+                            "_id": 5,
+                            "title": "bag",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/essential75l-.jpeg",
+                            "price": "300",
+                            "description": "sport bag"
+                        },
+                        {
+                            "_id": 6,
+                            "title": "kids ball",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/kids-slashadult-size-7-basketball-r100-orange.jpeg",
+                            "price": "50",
+                            "description": "kids ball"
+                        },
+                        {
+                            "_id": 7,
+                            "title": "men sleevless T shirt",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/men-s-reversible-sleeveless-t-shirt-t500r-usa-whiteslashnavy.jpeg",
+                            "price": "930",
+                            "description": "proffessional sleevless T shirt"
+                        },
+                        {
+                            "_id": 8,
+                            "title": "mini basket",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/mini-b-deluxe-slash.jpeg",
+                            "price": "150",
+                            "description": "mini basket"
+                        },
+                        {
+                            "_id": 9,
+                            "title": "shoes",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/se100-easy-boys-slashgirls-beginner-basketball-shoes-blackslashred.jpeg",
+                            "price": "600",
+                            "description": "pretty shoes"
+                        },
+                        {
+                            "_id": 10,
+                            "title": "lakers shoes",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/se900-mini-me-nba.jpeg",
+                            "price": "723",
+                            "description": "lakers shoes"
+                        },
+                        {
+                            "_id": 11,
+                            "title": "shirt",
+                            "category": "Basketball",
+                            "image": "../Images/basketball/ts500-.jpeg",
+                            "price": "70",
+                            "description": "T shirt"
+                        }
+                    ]
+    },
+    { 
+        "_id": 2,
+        "name": "Cycling",
+        "products": [
+                        {
+                            "_id": 1,
+                            "title": "taligate",
+                            "category": "Cycling",
+                            "image": "/Images/cycling/2slash3-300-tailgate.jpeg",
+                            "price": "450",
+                            "description": "proffessional taligate"
+                        },
+                        {
+                            "_id": 2,
+                            "title": "bag",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/3-st-500-.jpeg",
+                            "price": "200",
+                            "description": "compact bag"
+                        },
+                        {
+                            "_id": 3,
+                            "title": "static stand",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/5.jpeg",
+                            "price": "150",
+                            "description": "static stand"
+                        },
+                        {
+                            "_id": 4,
+                            "title": "bicycle pump",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/520.jpeg",
+                            "price": "90",
+                            "description": "bicycle pump"
+                        },
+                        {
+                            "_id": 5,
+                            "title": "locker",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/920-bike-mini-d-lock-15cm.jpeg",
+                            "price": "50",
+                            "description": "strong locker"
+                        },
+                        {
+                            "_id": 6,
+                            "title": "jacket",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/men-s-rain-jacket-rc100-blue.jpeg",
+                            "price": "220",
+                            "description": "rain jacket"
+                        },
+                        {
+                            "_id": 7,
+                            "title": "bike",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/men-s-recreational-cycling-road-bike-rc100-grey.jpeg",
+                            "price": "1200",
+                            "description": "proffessional bike"
+                        },
+                        {
+                            "_id": 8,
+                            "title": "helmet",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/mf500-skating-skateboarding-scootering-helmet-blue.jpeg",
+                            "price": "120",
+                            "description": "safe helmet"
+                        },
+                        {
+                            "_id": 9,
+                            "title": "hybrid bike",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/riverside-120-hybrid-bike-grey.jpeg",
+                            "price": "1500",
+                            "description": "proffessional hybrid bike"
+                        },
+                        {
+                            "_id": 10,
+                            "title": "shoes",
+                            "category": "Cycling",
+                            "image": "../Images/cycling/van-rysel-roadr-500.jpeg",
+                            "price": "400",
+                            "description": "bike shoes"
+                        }
+                    ]
+    },
+    { 
+        "_id": 3,
+        "name": "Fitness",
+        "products": [
+                        {
+                            "_id": 1,
+                            "title": "shirt&pants",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/2-in-1-anti-chafing-fitness-shorts-black.jpeg",
+                            "price": "400",
+                            "description": "2 in 1 shirt and pants"
+                        },
+                        {
+                            "_id": 2,
+                            "title": "matress",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/100-.jpeg",
+                            "price": "100",
+                            "description": "yoga matress"
+                        },
+                        {
+                            "_id": 3,
+                            "title": "gloves",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/500-.jpeg",
+                            "price": "100",
+                            "description": "fitness gloves"
+                        },
+                        {
+                            "_id": 4,
+                            "title": "abs wheel",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/ab-wheel.jpeg",
+                            "price": "90",
+                            "description": "abs wheel"
+                        },
+                        {
+                            "_id": 5,
+                            "title": "band",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/cross-training-elastic-training-band-35-kg.jpeg",
+                            "price": "50",
+                            "description": "training band"
+                        },
+                        {
+                            "_id": 6,
+                            "title": "fitness kit",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/dst-100-.jpeg",
+                            "price": "350",
+                            "description": "fitness kit"
+                        },
+                        {
+                            "_id": 7,
+                            "title": "short pants",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/fst-100-fitness-cardio-training-shorts-black.jpeg",
+                            "price": "100",
+                            "description": "short pants"
+                        },
+                        {
+                            "_id": 8,
+                            "title": "fitness ball",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/l-.jpeg",
+                            "price": "70",
+                            "description": "fitness ball"
+                        },
+                        {
+                            "_id": 9,
+                            "title": "weights bench",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/reinforced-flatslashinclined-weights-bench.jpeg",
+                            "price": "300",
+                            "description": "weights bench"
+                        },
+                        {
+                            "_id": 10,
+                            "title": "abs matress",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/s.jpeg",
+                            "price": "80",
+                            "description": "abs matress"
+                        },
+                        {
+                            "_id": 10,
+                            "title": "walker",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/t520a.jpeg",
+                            "price": "1350",
+                            "description": "walker"
+                        },
+                        {
+                            "_id": 11,
+                            "title": "dumbbells",
+                            "category": "Fitness",
+                            "image": "../Images/fitness/weight-training-dumbbells-and-bars-kit-50-kg.jpeg",
+                            "price": "230",
+                            "description": "variaty of dumbbells"
+                        }
+                    ]
+    }
+]

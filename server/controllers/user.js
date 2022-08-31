@@ -45,7 +45,7 @@ import {removeProductFromCart, getUserShoppingCart, addProductToCart} from './sh
     }
 
     export async function login(req, res, next) {
-        console.log(req)
+        console.log(req.payload)
         const {email, password, rememberMe} = req.body;
         console.log(email);
         const user = await getUserByEmail(email);

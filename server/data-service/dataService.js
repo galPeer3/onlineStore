@@ -1,7 +1,8 @@
 import fs from "fs"; 
+import JSON5 from "json5";
 
 export const getUserByEmail = async (email) => {
-   const users = JSON5.parse(fs.readFileSync("/server/data/users.json"));
+   const users = JSON5.parse(fs.readFileSync("server/data/users.json"));
    return users.find((user) => user.email == email);
 }
 export const getUserActivities = async () => {
