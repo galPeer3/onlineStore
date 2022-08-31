@@ -1,8 +1,23 @@
+import * as React from 'react';
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
+import ListItemButton from '@mui/joy/ListItemButton';
+import Home from '@mui/icons-material/Home';
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import Logout from '@mui/icons-material/Logout';
+import About from '@mui/icons-material/Info';
+import UserActivities from '@mui/icons-material/SupervisedUserCircle';
+import AddProduct from '@mui/icons-material/PlaylistAdd';
+import RemoveProduct from '@mui/icons-material/PlaylistRemove';
+import Box from '@mui/joy/Box';
+import ListDivider from '@mui/joy/ListDivider';
 import { styles } from "./navigation-component-styles";
+
+
 import { useNavigate } from "react-router-dom";
 
-export function NavigationComponent(props) {
 
+export function NavigationComponent(props) {
     const {cartData, userData, homeData} = props;
     const navigate = useNavigate();
 
@@ -19,48 +34,90 @@ export function NavigationComponent(props) {
     const onAboutClick = () => {
         navigate('/about');
     }
-    const onShoppingCartClick = async () => {
-        const url = "api/user/cart";
-        const redirectUrl = "/cart";
-        await fetch(url, redirectUrl);
+    const onShoppingCartClick = () => {
+        navigate('/cart', {state:userData});
+    }
+    const onAddProductClick = () => {
+        navigate('/adminScreen/addProduct', {state:userData});
+    }
+    const onRemoveProductClick = () => {
+        navigate('/adminScreen/removeProduct', {state:userData});
+    }
+    const onUserActivitiesClick = () => {
+        navigate('/adminScreen/userActivities', {state:userData});
     }
 
-    const oncheckoutClick = async () => {
-        const url = "api/user/checkout";
-        const redirectUrl = "/checkout";
-        await fetch(url, redirectUrl);
-    }
-
-
-    const fetch = async (url, redirectUrl) => {
-        const response = await fetch(url, {
-            method: 'POST',
-          });
-
-          response.then((response) => response.json())
-          .then((data) => {
-            navigate(redirectUrl, {state: data})
-            })
-        .catch((error) => {
-            alert(error);
-            });
-
-    };
-
-    return(
-        <div style={styles.bar}>
-            <button style={styles.button} onClick={onHomeClick}>
-                Home
-            </button>
-            <button style={styles.button} onClick={onShoppingCartClick}>
-                Cart
-            </button>
-            <button style={styles.button} onClick={onLogoutClick}>
-                Logout
-            </button>
-            <button style={styles.button} onClick={onAboutClick}>
-                About
-            </button>
+    return (
+        <div >
+            <Box style={styles.navbar} component="nav" aria-label="My site" sx={{ flexGrow: 1 }}>
+                <List role="menubar" row >
+                    <ListItem role="none" onClick={onHomeClick} >
+                        <ListItemButton
+                            role="menuitem"
+                            component="a"
+                            href="#horizontal-list"
+                            aria-label="Home"
+                        >
+                            <Home />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListDivider />
+                    <ListItem role="none" onClick={onShoppingCartClick}>
+                        <ShoppingCart />
+                        <ListItemButton role="menuitem" component="a" href="#horizontal-list">
+                            Shopping Cart
+                        </ListItemButton>
+                    </ListItem>
+                    <ListDivider />
+                    <ListItem role="none" onClick={onLogoutClick}>
+                        <Logout />
+                        <ListItemButton role="menuitem" component="a" href="#horizontal-list">
+                            Logout
+                        </ListItemButton>
+                    </ListItem>
+                    <ListDivider />
+                    <ListItem role="none" onClick={onAboutClick}>
+                        <About />
+                        <ListItemButton role="menuitem" component="a" href="#horizontal-list">
+                            About Us
+                        </ListItemButton>
+                    </ListItem>
+                    <ListDivider />
+                    <ListItem role="none" onClick={onUserActivitiesClick} sx={{ marginInlineStart: 'auto' }}>
+                        <ListItemButton
+                            role="menuitem"
+                            component="a"
+                            href="#horizontal-list"
+                            aria-label="userActivities"
+                        >
+                            <UserActivities />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListDivider />
+                    <ListItem role="none" onClick={onAddProductClick} >
+                        <ListItemButton
+                            role="menuitem"
+                            component="a"
+                            href="#horizontal-list"
+                            aria-label="onAddProductClick"
+                        >
+                            <AddProduct />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListDivider />
+                    <ListItem role="none" onClick={onRemoveProductClick}>
+                        <ListItemButton
+                            role="menuitem"
+                            component="a"
+                            href="#horizontal-list"
+                            aria-label="removeProduct"
+                        >
+                            <RemoveProduct />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+            </Box>
         </div>
     );
 }
+

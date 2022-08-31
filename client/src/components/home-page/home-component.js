@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { NavigationComponent } from "../navigation-bar/navigation-component";
+// import soccerCategory from './main/356-3566699_water-ski-silhouette-comments-clipart-png-download-water.png';
 import { useParams, useLocation  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { LoginComponent } from "../login-page/login-component";
 import { styles } from "./home-component-styles";
+import $ from 'jquery';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -12,19 +14,20 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import BasicCard from "./card-component";
+import {CardsComponent} from "./card-component";
+
 
 export function HomeComponent(props) {
     const navigate = useNavigate();
     const {state} = useLocation(); // state holds the user data(so we can retrieve its cart)
-   const data =     [   {name: "Soccer", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085"}, 
-                        {name: "Basketball", img: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png?20060129155432"},
-                        {name: "Fitness", img: "https://m.media-amazon.com/images/I/91e89XFkCKL._AC_SX425_.jpg"},
-                        {name: "Water sport", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Za7q1Z1n6wDFG-eROUiCn4sHbe-zbooK8A&usqp=CAU"},
-                        {name: "Cycling", img: "https://surlybikes.com/uploads/bikes/surly-wednesday-fat-bike-green-BK7965-800x600.jpg"}, 
-                        {name: "Material Arts", img: "https://ae05.alicdn.com/kf/HLB1g3krXkCy2eVjSZSyq6xukVXan/Karate-Sports-Shaolin-Martial-Arts-Fun-Decal-Style-Accessories-Decorative-Vinyl-Accessories.jpg"},
+    const data =     [  {name: "Soccer", img: "https://flyclipart.com/thumb2/soccer-icon-164510.png"},
+                        {name: "Basketball", img: "https://img.favpng.com/19/20/2/basketball-sport-computer-icons-png-favpng-TeCX9Nm6CttXW816DyKet0bLq.jpg"},
+                        {name: "Fitness", img: "https://toppng.com/uploads/preview/fitness-free-icon-fitness-icon-11553442305yz0koorjc2.png"},
+                        {name: "Water sport", img: "https://icon-library.com/images/water-sports-icon/water-sports-icon-11.jpg"},
+                        {name: "Cycling", img: "https://w7.pngwing.com/pngs/941/1003/png-transparent-triathlon-cycling-computer-icons-sport-cycling.png"},
+                        {name: "Material Arts", img: "https://fashionsista.co/downloadpng/png/20200904/black-belt-karate-martial-artist-martial-arts-self.jpg"},
                     ];
-    
+
 //const addItemToCart = async (product) => {
   //     const url = 'api/user/addToCart';
          
@@ -41,11 +44,8 @@ export function HomeComponent(props) {
   //           navigate('/login', {replace:true});
   //         });
   // };
-let index = 0;
-      const list = data.map((product) => (
-          <BasicCard src={product.img} name={product.name}/>
-      ));
-      
+
+
          //const homeData = fetchHomeData();
 
     // const fetchHomeDate = async () => {
@@ -66,16 +66,44 @@ let index = 0;
     // };
 
     return (
-        //need to map list of data and show the products
-        <div style={styles.Page}>
-        <div style={styles.Title}>
-          Home
+
+        <div>
+                <header style={styles.Header}>
+                    <div className="storeHeader" style={styles.HeaderContent}>
+                        <hgroup style={styles.HeaderHgroup}>
+                            <h1>GG Sport</h1>
+                            <i>By Gal & Gil</i>
+                        </hgroup>
+                    </div>
+                    <div className="overlay" style={styles.headerOverlay}></div>
+                </header>
+            <section className="site" style={styles.Site}>
+                <div>
+                <nav style={styles.SiteNav}>
+                    <NavigationComponent />
+                </nav>
+                </div>
+
+                <div>
+                        <CardsComponent />
+                </div>
+
+            </section>
         </div>
-        <div style={styles.Container}>
-            <NavigationComponent />
-            {list}
-            
-        </div>
-        </div>
+
+
+
+
+
+        // <div>
+        // <div style={styles.Title}>
+        //   GG Sport
+        // </div>
+        // <div style={styles.Container}>
+        //     <NavigationComponent />
+        //     {list}
+        //
+        // </div>
+        // </div>
     );
 }

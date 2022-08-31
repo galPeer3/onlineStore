@@ -3,13 +3,13 @@ import { useState } from 'react';
 import {Redirect} from "../service/Redirect";
 import { useNavigate } from "react-router-dom";
 import { HomeComponent } from '../home-page/home-component';
-import { Navigate } from 'react-router-dom';
 
 export function LoginComponent(props) {
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState("");
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -20,10 +20,11 @@ export function LoginComponent(props) {
 
     const handleRegisterPageButton = () => {
         navigate('/register', {replace:true});
-    }
-    const login = () => {
+    }   
+     const login = () => {
         const userData = {"email": email, "password": password};
         const response = fetch('api/user/login', {
+
             method: 'POST',
              headers : {'Content-Type':'application/json',
                     'Access-Control-Allow-Origin':'*',
@@ -57,6 +58,16 @@ export function LoginComponent(props) {
 
             <button style={styles.LoginButton} onClick={login}>Login</button>
             <button style={styles.LoginButton} onClick={handleRegisterPageButton}>Register Page</button>
+                <div>
+                    <label htmlFor="remember_me">
+                        Remember me{" "}
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            onChange={(e) => setRememberMe(e.target.value)}
+                        ></input>
+                    </label>
+                </div>
             </div>
         </div>
 

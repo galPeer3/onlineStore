@@ -38,6 +38,6 @@ export function Soccer(props) {
 export function WaterSport(props) {
 
     return (
-<BasicHomeComponent/>
+<BasicHomeComponent url={"/watersport"}/>
     );
 }

@@ -4,13 +4,13 @@ import {getCategoriesData, getSoccerData, getBasketballData, getWaterSportData,
     getFitnessData, getCyclingData, getMartialArtsData} from '../controllers/products.js';
 // const authMiddleware = require('../middleware/authMiddleware')
 
-productsRouter.get('/', getCategoriesData)
-productsRouter.get('/soccer', getSoccerData)
-productsRouter.get('/basketball', getBasketballData)
-productsRouter.get('/watersport', getWaterSportData)
-productsRouter.get('/fitness', getFitnessData)
-productsRouter.get('/cycling', getCyclingData)
-productsRouter.get('/martialArts', getMartialArtsData)
+router.get('/', productsController.getCategoriesData)
+router.get('/Soccer', productsController.getSoccerData)
+router.get('/basketball', productsController.getBasketballData)
+router.get('/watersport', productsController.getWaterSportData)
+router.get('/fitness', productsController.getFitnessData)
+router.get('/cycling', productsController.getCyclingData)
+router.get('/martialarts', productsController.getMartialArtsData)
 
 
 
