@@ -195,7 +195,7 @@
                             "_id": 3,
                             "title": "gloves",
                             "category": "Fitness",
-                            "image": "./Images/fitness/500-.jpeg",
+                            "image": "./Images/fitness/500.jpeg",
                             "price": "100",
                             "description": "fitness gloves"
                         },
@@ -345,7 +345,7 @@
                       "_id": 9,
                       "title": "Boxing mouth-guard",
                       "category": "Martial Arts",
-                      "image": "./Images/martialarts/rl-500-.jpeg",
+                      "image": "./Images/martialarts/l-500-.jpeg",
                       "price": "70",
                       "description": "boxing mouth-guard size s - grey"
                     },
@@ -391,7 +391,7 @@
                       "_id": 3,
                       "title": "Adult shorts",
                       "category": "Soccer",
-                      "image": "./Images/soccer/Adult base layer shorts keepdry.jpeg",
+                      "image": "./Images/soccer/Adult-base-layer-shorts-keepdry.jpeg",
                       "price": "60",
                       "description": "Adult base layer shorts"
                     },

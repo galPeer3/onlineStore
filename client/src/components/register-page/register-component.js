@@ -9,11 +9,11 @@ export function RegisterComponent(props) {
     localStorage.setItem('auth', "false");
     const navigate = useNavigate();
 
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
     }
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -22,22 +22,25 @@ export function RegisterComponent(props) {
         navigate('/login', {replace:true});
     }
     const register = async () => {
-        const userData = {name: name, password: password};
-        const url = '/register';
+        
+        const userData = {"email": email, "password": password};
+        const response = fetch('api/user/register', {
 
-        const response = await fetch(url, {
             method: 'POST',
+             headers : {'Content-Type':'application/json',
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
+               },
             body: JSON.stringify(userData) 
           });
-
-          response.then((response) => response.json())
+          response.then((data) =>data.json())
           .then((data) => {
-            alert("You have register successfully! /n Go to login page.")
-            
+            alert('you have registered successfully!')
+            navigate('/', {replace: true})
             })
-        .catch((error) => {
-            alert(error);
-            });
+            .catch((error) => {
+                alert("invalid email or password");
+                });
     };
 
     return (
@@ -45,11 +48,11 @@ export function RegisterComponent(props) {
             <h1 style={styles.Title}>Welcome!</h1>
             <div style={styles.userDetails}>
             <label>
-                User Name:
-                <input style={styles.UserName} type="text" value={name} onChange={handleNameChange}  />
+                User Name:<br/>
+                <input style={styles.UserName} type="text" value={email} onChange={handleEmailChange}  />
             </label>
-            <label>
-                Password:
+            <label><br/>
+                Password:<br/>
                 <input style={styles.Password} type="text" value={password} onChange={handlePasswordChange}  />
             </label>
 

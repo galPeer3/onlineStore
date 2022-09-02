@@ -1,8 +1,9 @@
 'use strict'
 const JSON5 = require("json5");
 const fs  = require("fs");
-const {getProductById, getAllUsersDetails, getAllProducts, getAllShippingDetails, getUserActivities, getHighestProductIdByCategory, getAllCarts, getUserCart, getAllPurchases} = require('./dataService.js');
+const {getProduct, getAllUsersDetails, getAllProducts, getAllShippingDetails, getUserActivities, getHighestProductIdByCategory, getAllCarts, getUserCart, getAllPurchases} = require('./dataService.js');
 const {PRODUCTS_PATH,USERS_ACTIVITY,USERS_DETAILS,SHIPPING_DETAILS,PURCHASES_PATH, CARTS_PATH} = require("./utils/paths");
+const { networkInterfaces } = require("os");
 
 // Data that must be persisted:
 // User details - done
@@ -13,6 +14,9 @@ const {PRODUCTS_PATH,USERS_ACTIVITY,USERS_DETAILS,SHIPPING_DETAILS,PURCHASES_PAT
 async function insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription) {
     const storeProducts = await getAllProducts();
     const categoryIndex = storeProducts.findIndex((category) => category.name == productCategory);
+    if(categoryIndex == -1){
+        return false;
+    }
     const highestId = await getHighestProductIdByCategory(productCategory);
     console.log(highestId)
     if(highestId == false) {
@@ -36,7 +40,9 @@ async function insertNewProductIntoProducts(productTitle, productCategory, produ
 async function removeProduct(productId, categoryName) {
     let storeProducts = await getAllProducts();
     const categoryIndex = storeProducts.findIndex((category) => category.name == categoryName);
-
+    if(categoryIndex == -1){
+        return false;
+    }
     const afterDeletion = storeProducts[categoryIndex].products.filter((product)=> product._id != productId );
     storeProducts[categoryIndex].products = afterDeletion;
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(storeProducts));
@@ -49,29 +55,35 @@ function removeProductById(productId) {
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(storeProducts));
 }
 
-function insertIntoUsersActivities(activity, email, message){ //login, logout, add-to-cart
-    const usersActivities = getUserActivities();
+async function insertIntoUsersActivities(activity, email, message){ //login, logout, add-to-cart
+    const usersActivities = await getUserActivities();
     let newActivityRecord = {activity: activity,
-                            date: new Date(),
+                            date: new Date(Date.now()),
                             email: email,
                             event: message};
     usersActivities.push(newActivityRecord);
     fs.writeFileSync(USERS_ACTIVITY, JSON5.stringify(usersActivities));
 }
 
-function insertIntoUsersDetails(email, hashPassword, isAdmin){
-    const usersDetails = getAllUsersDetails();
+async function insertIntoUsersDetails(email, hashPassword){
+    const usersDetails = await getAllUsersDetails();
     let newUserRecord = {email: email,
                         hashPassword: hashPassword,
-                        isAdmin: isAdmin};
+                        isAdmin: false};
     usersDetails.push(newUserRecord);
     fs.writeFileSync(USERS_DETAILS, JSON5.stringify(usersDetails));
 }
 
-function addProductToUserCart(email, productId) {
-    const allCarts = getAllCarts();
-    const productToAdd = getProductById(productId);
-    allCarts[email]["products"].push(productToAdd)
+async function createCart(email){
+    const allCarts = await getAllCarts();
+    allCarts[email] = [];
+    fs.writeFileSync(CARTS_PATH, JSON5.stringify(allCarts));
+}
+
+async function addProductToUserCart(email, productId, categoryName) {
+    const allCarts = await getAllCarts();
+    const productToAdd = await getProduct(productId, categoryName);
+    allCarts[email].push(productToAdd);
     fs.writeFileSync(CARTS_PATH, JSON5.stringify(allCarts));
 }
 
@@ -114,5 +126,5 @@ function insertPaymentMethod(email, paymentMethod) {
 
 
 module.exports = {insertPaymentMethod, deleteCartByUserEmail, insertPurchase, removeProductFromUserCart, addProductToUserCart, insertIntoUsersDetails,
-    insertIntoUsersActivities, removeProduct, insertNewProductIntoProducts, insertShippingDetails};
+    insertIntoUsersActivities, removeProduct, insertNewProductIntoProducts, insertShippingDetails, createCart};
 

@@ -20,7 +20,7 @@ const getUserCart = async (email) => {
 
 }
 const getAllCarts = async () => {
-    const carts = JSON5.parse(fs.readFileSync(CARTS_PATH));
+    const carts = JSON5.parse(fs.readFileSync(path.join(__dirname, CARTS_PATH)));
     return carts;
 }
 const getAllPurchases = async () => {
@@ -32,7 +32,7 @@ const getPurchaseById = async (orderNumber) => {
     return purchases.find((purchase) => purchase["orderNumber"] == orderNumber);
 }
 const getAllUsersDetails = async () => {
-    const users = JSON5.parse(fs.readFileSync(USERS_DETAILS));
+    const users = JSON5.parse(fs.readFileSync(path.join(__dirname, USERS_DETAILS)));
     return users;
 }
 
@@ -46,9 +46,13 @@ const getAllProducts = async () => {
     return products;
 }
 
-const getProductById = async (id) => {
-    const products = JSON5.parse(fs.readFileSync(PRODUCTS_PATH));
-    return products.find((product) => product["id"] == id);
+const getProduct = async (id, categoryName) => {
+    const products = await getAllProducts()
+    const categoryIndex = products.findIndex((category) => category.name == categoryName);
+
+    const productIndex = products[categoryIndex].products.findIndex((product) => product._id == id);
+
+    return products[categoryIndex].products[productIndex];
 }
 
 const getHighestProductIdByCategory = async (categoryName) => {
@@ -78,7 +82,7 @@ const checkIfAdmin = async (email) => {
 
 
 
-module.exports = {checkIfAdmin, getHighestProductIdByCategory, getProductById, getAllProducts,
-    getAllUsers: getAllUsersDetails, getPurchaseById, getAllPurchases, getAllCarts, getUserCart, getUserActivities,
+module.exports = {checkIfAdmin, getHighestProductIdByCategory, getProduct, getAllProducts,
+    getAllUsersDetails, getPurchaseById, getAllPurchases, getAllCarts, getUserCart, getUserActivities,
     getUserByEmail, getAllShippingDetails};
 
