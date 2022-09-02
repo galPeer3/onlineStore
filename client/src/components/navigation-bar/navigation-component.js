@@ -22,7 +22,7 @@ export function NavigationComponent(props) {
     const navigate = useNavigate();
 
     const onHomeClick = () => {
-        navigate('/home',  {replace:true});
+        navigate('/home',  {replace:true}); //userDate = {name:name, password:password}
     }
     const onLogoutClick = () => {
         const response = fetch('api/user/logout', {
@@ -43,7 +43,7 @@ export function NavigationComponent(props) {
                 alert("logout failed");
                 });
             }
-  
+    
     const onAboutClick = () => {
         navigate('/about');
     }

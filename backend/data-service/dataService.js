@@ -8,7 +8,7 @@ const getUserByEmail = async (email) => {
    return user;
 }
 const getUserActivities = async () => {
-    const usersActivities = JSON5.parse(fs.readFileSync("/server/data/usersActivities.json5"));
+    const usersActivities = JSON5.parse(fs.readFileSync(path.join(__dirname, "../../backend/data/usersActivities.json5")));
     return usersActivities;
 }
 const getUserCart = async (email) => {

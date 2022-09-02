@@ -73,10 +73,10 @@ const addItemToCart = (id) => {
   };
 
 if(!homeData) {
-  alert("Loading...");
+  alert("Loading... press to continue");
   return;
 }
-    const listItems = <ImageList sx={{ width: 900, height: 600}} cols={3} rowHeight={160}  gap={100}>
+    const listItems = <ImageList sx={{ height: 600, marginLeft:"200px"}} cols={3} rowHeight={160}  gap={100}>
 
       {homeData.map((product) => (
         
@@ -110,9 +110,7 @@ if(!homeData) {
     return (
         //need to map list of data and show the products
         <div style={styles.Page}>
-        <div style={styles.Title}>
-          Home
-        </div>
+  
         <div style={styles.Container}>
             <NavigationComponent />
             {listItems}

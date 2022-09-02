@@ -20,7 +20,6 @@ const {removeProductFromCart, getUserShoppingCart, addProductToCart} = require('
 
         }
 
-        
         const {email, password} = decoded;
          const user = await getUserByEmail(email);
          
@@ -85,18 +84,27 @@ const {removeProductFromCart, getUserShoppingCart, addProductToCart} = require('
 
     }
 
-    async function logout(req,res) {
+    async function logout(req, res, next) {
         res.clearCookie("access_token");
         insertIntoActivitiesOfUsers("Logout", email, "Logout Success");
         res.status(200).send();
     }
 
-    async function userActivities(req, res) {
-        await getUserActivities();
-        res.status(200).send();
+    async function userActivities(req, res, next) {
+
+        // const user = await authenticateUser(req, next);
+
+        // const {isAdmin} = user;
+
+        // if(!isAdmin) {
+        //     return next(errorHandler.forbidden("Not an Admin"));
+        // }
+
+        const userActivities = await getUserActivities();
+        res.status(200).send(userActivities);
     }
 
-    async function addProduct(req, res){
+    async function addProduct(req, res, next){
         const user = await authenticateUser(req, next);
 
         const {isAdmin} = user;
@@ -110,7 +118,7 @@ const {removeProductFromCart, getUserShoppingCart, addProductToCart} = require('
         res.status(200).send();
     }
 
-    async function deleteProduct(req, res){
+    async function deleteProduct(req, res, next){
         const user = await authenticateUser(req, next);
 
         const {isAdmin} = user;
@@ -119,8 +127,8 @@ const {removeProductFromCart, getUserShoppingCart, addProductToCart} = require('
             return next(errorHandler.forbidden("Not an Admin"));
         }
 
-        const {productTitle, productCategory, productImage, productPrice, productDescription} = req.body
-        removeProduct(productTitle, productCategory, productImage, productPrice, productDescription);
+        const {productId} = req.body
+        removeProduct(productId);
         res.status(200).send();
     }
     async function shoppingCart(req, res, next){

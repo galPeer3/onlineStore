@@ -26,10 +26,12 @@ function insertNewProductIntoProducts(productTitle, productCategory, productImag
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(allProducts));
 }
 
-function removeProduct(productTitle, productCategory, productImage, productPrice, productDescription) {
+function removeProduct(productId) {
     const allProducts = JSON5.parse(fs.readFileSync(PRODUCTS_PATH));
-    const categoryIndex = products.indexOf((category) => category['name'] == categoryName);
-    allProducts[categoryIndex].products.filter((product)=>product.title != title );
+    const productToAdd = getProductById(id);
+    const {categoryName} = productToAdd;
+    const categoryIndex = allProducts.indexOf((category) => category['name'] == categoryName);
+    allProducts[categoryIndex].products.filter((product)=>product._id != id );
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(allProducts));
 }
 
