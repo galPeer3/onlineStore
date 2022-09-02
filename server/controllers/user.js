@@ -1,4 +1,4 @@
-import {removeProduct, insertIntoUsersDetails, insertIntoActivitiesOfUsers, insertNewProductIntoProducts} from  "../persist.js";
+import {removeProduct, insertIntoUsersDetails, insertIntoUsersActivities, insertNewProductIntoProducts} from  "../persist.js";
 import {getUserByEmail, getUserActivities, checkIfAdmin} from "../data-service/dataService.js";
 
 import errorHandler from '../Errors/errorsHandler.js';
@@ -51,18 +51,18 @@ import {removeProductFromCart, getUserShoppingCart, addProductToCart} from './sh
         const user = await getUserByEmail(email);
         if (!user) {
             let message = "Email doesn't exist is the system";
-            insertIntoActivitiesOfUsers("Login", email, message);
+            insertIntoUsersActivities("Login", email, message);
             return next(errorHandler.internalServer(message));
         }
         let isCorrectPassword = bcrypt.compareSync(password, user.password);
         if (!isCorrectPassword) {
             let message = "Incorrect password";
-            insertIntoActivitiesOfUsers("Login", user.email, message);
+            insertIntoUsersActivities("Login", user.email, message);
             return next(errorHandler.internalServer(message));
         }
         const isAdmin = checkIfAdmin(email);
         const exp = rememberMe ? "10 days" : 30
-        insertIntoActivitiesOfUsers("Login", user.email, "Login succeed");
+        insertIntoUsersActivities("Login", user.email, "Login succeed");
 
         const token =  json(generateToken(exp, user.email, isAdmin));
         const cookiesOptions = {httpOnly: true, maxAge: rememberMe ? 10*24*60*60 : 30*60 }
@@ -75,7 +75,7 @@ import {removeProductFromCart, getUserShoppingCart, addProductToCart} from './sh
 
     export async function logout(req,res) {
         res.clearCookie("access_token");
-        insertIntoActivitiesOfUsers("Logout", email, "Logout Success");
+        insertIntoUsersActivities("Logout", email, "Logout Success");
         res.status(200).send();
     }
 

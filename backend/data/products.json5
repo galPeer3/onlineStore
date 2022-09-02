@@ -12,7 +12,7 @@
                             "description": "begginers ball"
                         },
                         {
-                            "_id": 3,
+                            "_id": 2,
                             "title": "balls",
                             "category": "Basketball",
                             "image": "./Images/basketball/balls-cag.jpeg",
@@ -20,7 +20,7 @@
                             "description": "coach balls kit"
                         },
                         {
-                            "_id": 4,
+                            "_id": 3,
                             "title": "flat markers",
                             "category": "Basketball",
                             "image": "./Images/basketball/essential-pack-of-40-flat-markers-4-colours-yellow-orange-grey-blue.jpeg",
@@ -28,7 +28,7 @@
                             "description": "colorfull flat markers"
                         },
                         {
-                            "_id": 5,
+                            "_id": 4,
                             "title": "bag",
                             "category": "Basketball",
                             "image": "./Images/basketball/essential75l-.jpeg",
@@ -36,7 +36,7 @@
                             "description": "sport bag"
                         },
                         {
-                            "_id": 6,
+                            "_id": 5,
                             "title": "kids ball",
                             "category": "Basketball",
                             "image": "./Images/basketball/kids-slashadult-size-7-basketball-r100-orange.jpeg",
@@ -44,7 +44,7 @@
                             "description": "kids ball"
                         },
                         {
-                            "_id": 7,
+                            "_id": 6,
                             "title": "men sleevless T shirt",
                             "category": "Basketball",
                             "image": "./Images/basketball/men-s-reversible-sleeveless-t-shirt-t500r-usa-whiteslashnavy.jpeg",
@@ -52,7 +52,7 @@
                             "description": "proffessional sleevless T shirt"
                         },
                         {
-                            "_id": 8,
+                            "_id": 7,
                             "title": "mini basket",
                             "category": "Basketball",
                             "image": "./Images/basketball/mini-b-deluxe-slash.jpeg",
@@ -60,7 +60,7 @@
                             "description": "mini basket"
                         },
                         {
-                            "_id": 9,
+                            "_id": 8,
                             "title": "shoes",
                             "category": "Basketball",
                             "image": "./Images/basketball/se100-easy-boys-slashgirls-beginner-basketball-shoes-blackslashred.jpeg",
@@ -68,7 +68,7 @@
                             "description": "pretty shoes"
                         },
                         {
-                            "_id": 10,
+                            "_id": 9,
                             "title": "lakers shoes",
                             "category": "Basketball",
                             "image": "./Images/basketball/se900-mini-me-nba.jpeg",
@@ -76,7 +76,7 @@
                             "description": "lakers shoes"
                         },
                         {
-                            "_id": 11,
+                            "_id": 10,
                             "title": "shirt",
                             "category": "Basketball",
                             "image": "./Images/basketball/ts500-.jpeg",
