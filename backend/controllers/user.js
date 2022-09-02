@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {removeProductFromUserCart} = require("../persist");
 const saltRounds = 10;
+let orderNumber = 0;
 
 
 async function authenticateUser(req, next) {
@@ -50,7 +51,6 @@ async function register(req, res, next) {
     const hashPassword = await bcrypt.hash(password, saltRounds);
     insertIntoUsersDetails(email, hashPassword);
     return ;
-
 }
 
 async function login(req, res, next) {
@@ -192,6 +192,18 @@ async function login(req, res, next) {
         res.status(200).send();
     }
 
+    async function purchaseCompleted(req,res,next){
+        const user = await authenticateUser(req, next);
+        if(!user){
+            return next(errorHandler.notFound("user not found"));
+        }
+        const {email, purchase} = req.body;
+        insertPurchase(email,orderNumber,purchase);
+        deleteCartByUserEmail(email);
+        orderNumber++;
+        res.status(200).json("Purchase completed successfully");
+    }
+
     async function check(req, res, next) {
         // const exp = req.body.rememberMe ? "10 days" : 30
         // return res.json(generateToken(exp, req.user.id, req.user.email, req.user.role));
@@ -206,7 +218,7 @@ const generateToken = (exp, email, password, isAdmin) => {
     )
 }
 
-module.exports = {check, checkout,payment, shipping, removeFromCart, addToCart, shoppingCart, deleteProduct,
+module.exports = {check, checkout,payment, shipping, purchaseCompleted, removeFromCart, addToCart, shoppingCart, deleteProduct,
     addProduct, login, register, logout, userActivities};
 
 
