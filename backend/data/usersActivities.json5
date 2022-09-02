@@ -1,0 +1,98 @@
+[
+    {
+    name: "gal",
+    action: "login"
+},
+{
+    name: "dan",
+    action: "login"
+},
+{
+    name: "gal",
+    action: "logout"
+},
+{
+    name: "gal",
+    action: "add"
+},
+{
+    name: "gal",
+    action: "login"
+},
+{
+    name: "dan",
+    action: "login"
+},
+{
+    name: "gal",
+    action: "logout"
+},
+{
+    name: "gal",
+    action: "add"
+},
+{
+    name: "gal",
+    action: "login"
+},
+{
+    name: "dan",
+    action: "login"
+},
+{
+    name: "gal",
+    action: "logout"
+},
+{
+    name: "gal",
+    action: "add"
+},
+{
+    name: "gal",
+    action: "login"
+},
+{
+    name: "dan",
+    action: "login"
+},
+{
+    name: "gal",
+    action: "logout"
+},
+{
+    name: "gal",
+    action: "add"
+},
+{
+    name: "gal",
+    action: "login"
+},
+{
+    name: "dan",
+    action: "login"
+},
+{
+    name: "gal",
+    action: "logout"
+},
+{
+    name: "gal",
+    action: "add"
+},
+{
+    name: "gal",
+    action: "login"
+},
+{
+    name: "dan",
+    action: "login"
+},
+{
+    name: "gal",
+    action: "logout"
+},
+{
+    name: "gal",
+    action: "add"
+}
+]

@@ -48,18 +48,15 @@ export function LoginComponent(props) {
             <h1 style={styles.Title}>Welcome Back!</h1>
             <div style={styles.userDetails}>
             <label>
-                User email:
-                <input style={styles.UserName} type="text" value={email} onChange={handleEmailChange}  />
+                User email:<br/>
+                <input style={styles.UserName} type="email" value={email} onChange={handleEmailChange}  />
             </label>
             <label>
-                Password:
+                Password:<br/>
                 <input style={styles.Password} type="text" value={password} onChange={handlePasswordChange}  />
             </label>
-
-            <button style={styles.LoginButton} onClick={login}>Login</button>
-            <button style={styles.LoginButton} onClick={handleRegisterPageButton}>Register Page</button>
-                <div>
-                    <label htmlFor="remember_me">
+            <div>
+                    <label htmlFor="remember_me" style={{fontSize:20}}>
                         Remember me{" "}
                         <input
                             type="checkbox"
@@ -68,6 +65,8 @@ export function LoginComponent(props) {
                         ></input>
                     </label>
                 </div>
+            <button style={styles.LoginButton} onClick={login}>Login</button>
+            <button style={styles.RegisterButton} onClick={handleRegisterPageButton}>Register page</button>
             </div>
         </div>
 

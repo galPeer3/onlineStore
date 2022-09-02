@@ -10,7 +10,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 export function ShoppingCartComponent(props) {
@@ -97,8 +97,7 @@ if(!cartData) {
                 sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                 onClick={() => removeItemFromCart(product._id)}
               >
-                Add 
-                <AddCircleIcon />
+                <DeleteForeverIcon />
               </IconButton>
             }
           />

@@ -1,10 +1,22 @@
-const {getAllProducts}  = require("../dataService.js");
+const {getAllProducts}  = require("../dataService");
 
-async function getBasketballData(req, res, next) {
-    const products = await getAllProducts();
-    res.status(200).send(products[0].products);
-}
 
+     async function getCategoriesData(req, res, next) {
+        const categories = await getAllProducts();
+        const initialValue = [];
+    const products = categories.reduce(
+            (products, category) => products.concat(category.products),
+            initialValue
+            );
+            
+       res.status(200).send(products);
+    }
+
+    async function getBasketballData(req, res, next) {
+        const products = await getAllProducts();
+        res.status(200).send(products[0].products);
+    }
+    
 async function getCyclingData(req, res, next) {
     const products = await getAllProducts();
     res.status(200).send(products[1].products);
@@ -29,14 +41,6 @@ async function getWaterSportData(req, res, next) {
     const products = await getAllProducts();
     res.status(200).send(products[5].products);
 }
-
-async function getCategoriesData(req, res, next) {
-        const products = await getAllProducts();
-        res.status(200).send(products);
-}
-
-
-
 
 
 

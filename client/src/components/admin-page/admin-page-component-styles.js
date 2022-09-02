@@ -1,32 +1,27 @@
 import { color } from "@mui/system";
 
 export const styles = {
-ImageCard: {
-    width: "80%",
-    backgroundColor: "white",
-    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-    marginBottom: "25px",
-  },
-  
-ImageTitle: {
-    textAlign: "center",
-    padding: "10px 20px"
-  },
-Container: {
+    Form: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
+    marginTop:"64px",
     justifyContent: "center",
-    maxWidth: 1200
+    textAlign: "center",
+    alignItems: "center"
   },
-Title: {
-  fontWeight: 1000,
-  fontSize: "100px",
-  color: "blue",
-  display: "flex",
-  justifyContent:"center"
+  Activities: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    textAlign: "center",
+    alignItems: "center",
+    marginLeft:"630px"
+  },
+  Input: {
+    border: "5px solid blue",
+    borderRadius: "10px",
+    zIndex: "1 !important"
 },
- Page: {
- },
- Card: {
- }
+
+
 };

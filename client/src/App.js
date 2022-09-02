@@ -17,6 +17,7 @@ import {AboutUsPageComponent} from './components/aboutUs-page/aboutUs-page-compo
 import { HomeComponent } from './components/home-page/home-component';
 import { Basketball, Soccer, WaterSport,MartialArts, Cycling, Fitness } from './components/home-page/home-categories-service';
 import {ShoppingCartComponent} from './components/shopping-cart-page/shopping-cart-component';
+import {AdminComponent} from './components/admin-page/admin-page-component';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
       <Route path="/fitness" element= {Fitness()} />
       <Route path="/cart" element= {<ShoppingCartComponent />} />
       <Route path="/about" element={<AboutUsPageComponent />} />
+      <Route path="/admin" element= {<AdminComponent />} />
 
     </Routes>
   </BrowserRouter>

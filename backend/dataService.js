@@ -1,6 +1,7 @@
 'use strict'
 const fs = require("fs");
 const JSON5 = require("json5");
+const path = require('path');
 const {PRODUCTS_PATH,USERS_ACTIVITY,USERS_DETAILS,SHIPPING_DETAILS,PURCHASES_PATH, CARTS_PATH} = require("./utils/paths");
 
 
@@ -10,7 +11,7 @@ const getUserByEmail = async (email) => {
    return user;
 }
 const getUserActivities = async () => {
-    const usersActivities = JSON5.parse(fs.readFileSync(USERS_ACTIVITY));
+    const usersActivities = JSON5.parse(fs.readFileSync(path.join(__dirname, USERS_ACTIVITY)));
     return usersActivities;
 }
 const getUserCart = async (email) => {
@@ -41,7 +42,7 @@ const getAllShippingDetails = async () =>{
 }
 
 const getAllProducts = async () => {
-    const products = JSON5.parse(fs.readFileSync(PRODUCTS_PATH));
+    const products = JSON5.parse(fs.readFileSync(path.join(__dirname, PRODUCTS_PATH)));
     return products;
 }
 
@@ -51,8 +52,11 @@ const getProductById = async (id) => {
 }
 
 const getHighestProductIdByCategory = async (categoryName) => {
-    const products = JSON5.parse(fs.readFileSync(PRODUCTS_PATH));
-    const category = products.find((category) => category['name'] == categoryName);
+    const products = JSON5.parse(fs.readFileSync(path.join(__dirname, PRODUCTS_PATH)));
+    const category = products.find((category) => category.name == categoryName);
+    if(!category) {
+        return false;
+    }
     const categoryProducts = category.products;
 
     const initialValue = 0;

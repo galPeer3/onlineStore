@@ -10,31 +10,42 @@ const {PRODUCTS_PATH,USERS_ACTIVITY,USERS_DETAILS,SHIPPING_DETAILS,PURCHASES_PAT
 // Purchases - done
 // Login activity - done
 
-function insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription) {
-    const storeProducts = getAllProducts();
-    const categoryIndex = storeProducts.indexOf((category) => category['name'] == productCategory);
+async function insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription) {
+    const storeProducts = await getAllProducts();
+    const categoryIndex = storeProducts.findIndex((category) => category.name == productCategory);
+    const highestId = await getHighestProductIdByCategory(productCategory);
+    console.log(highestId)
+    if(highestId == false) {
+        return false;
+    }
+
     let newProductRecord = {
-        _id: getHighestProductIdByCategory(productCategory) + 1,
+        _id: highestId + 1,
         title: productTitle,
         category: productCategory,
         image: productImage,
         price: productPrice,
         description: productDescription};
+    
     storeProducts[categoryIndex].products.push(newProductRecord);
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(storeProducts));
+
+    return true;
 }
 
-function removeProductByTitle(productTitle) {
-    const storeProducts = getAllProducts();
-    const categoryIndex = storeProducts.indexOf((category) => category['name'] == categoryName);
-    storeProducts[categoryIndex].products.filter((product)=> product.title != productTitle );
+async function removeProduct(productId, categoryName) {
+    let storeProducts = await getAllProducts();
+    const categoryIndex = storeProducts.findIndex((category) => category.name == categoryName);
+
+    const afterDeletion = storeProducts[categoryIndex].products.filter((product)=> product._id != productId );
+    storeProducts[categoryIndex].products = afterDeletion;
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(storeProducts));
 }
 
 function removeProductById(productId) {
     const storeProducts = getAllProducts();
     const categoryIndex = storeProducts.indexOf((category) => category['name'] == categoryName);
-    storeProducts[categoryIndex].products.filter((product)=>product._id != productId );
+    storeProducts[categoryIndex].products.filter((product)=>product._id !== productId );
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(storeProducts));
 }
 
@@ -103,5 +114,5 @@ function insertPaymentMethod(email, paymentMethod) {
 
 
 module.exports = {insertPaymentMethod, deleteCartByUserEmail, insertPurchase, removeProductFromUserCart, addProductToUserCart, insertIntoUsersDetails,
-    insertIntoUsersActivities, removeProductByTitle, insertNewProductIntoProducts, insertShippingDetails};
+    insertIntoUsersActivities, removeProduct, insertNewProductIntoProducts, insertShippingDetails};
 
