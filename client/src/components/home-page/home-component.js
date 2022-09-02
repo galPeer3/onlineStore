@@ -14,6 +14,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {CardsComponent} from "./card-component";
+import {HeaderComponent} from "../header/header-component";
 
 
 export function HomeComponent(props) {
@@ -67,15 +68,7 @@ export function HomeComponent(props) {
     return (
 
         <div>
-                <header style={styles.Header}>
-                    <div className="storeHeader" style={styles.HeaderContent}>
-                        <hgroup style={styles.HeaderHgroup}>
-                            <h1>GG Sport</h1>
-                            <i>By Gal & Gil</i>
-                        </hgroup>
-                    </div>
-                    <div className="overlay" style={styles.headerOverlay}></div>
-                </header>
+            <HeaderComponent />
             <section className="site" style={styles.Site}>
                 <div>
                 <nav style={styles.SiteNav}>

@@ -9,6 +9,7 @@ userRouter.use(bodyParser.json());
 userRouter.post('/register', register);
 userRouter.post('/login', login);
 userRouter.get('/logout', logout);
+userRouter.get('/about', logout);
 userRouter.get('/cart', shoppingCart);
 userRouter.post('/addToCart', addToCart);
 userRouter.post('/removeFromCart', removeFromCart);

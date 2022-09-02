@@ -13,6 +13,7 @@ import { BasketballComponent } from './components/home-page/basketball-component
 import { MartialArtsComponent } from './components/home-page/martial-arts';
 import { WaterSportComponent } from './components/home-page/water-sport';
 import { CyclingComponent } from './components/home-page/cycling-component';
+import {AboutUsPageComponent} from './components/aboutUs-page/aboutUs-page-component';
 import { HomeComponent } from './components/home-page/home-component';
 import { Basketball, Soccer, WaterSport,MartialArts, Cycling, Fitness } from './components/home-page/home-categories-service';
 import {ShoppingCartComponent} from './components/shopping-cart-page/shopping-cart-component';
@@ -33,6 +34,7 @@ function App() {
       <Route path="/cycling" element= {Cycling()} />
       <Route path="/fitness" element= {Fitness()} />
       <Route path="/cart" element= {<ShoppingCartComponent />} />
+      <Route path="/about" element={<AboutUsPageComponent />} />
 
     </Routes>
   </BrowserRouter>
