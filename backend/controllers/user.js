@@ -1,4 +1,4 @@
-const {removeProductByTitle, insertShippingDetails, deleteCartByUserEmail, insertPurchase, insertPaymentMethod,insertIntoUsersDetails,
+const {removeProduct, insertShippingDetails, deleteCartByUserEmail, insertPurchase, insertPaymentMethod,insertIntoUsersDetails,
     insertIntoUsersActivities, insertNewProductIntoProducts, addProductToUserCart} = require("../persist.js");
 
 const {getUserByEmail, getUserActivities, checkIfAdmin, getUserCart} = require("../dataService");
@@ -34,7 +34,6 @@ async function authenticateUser(req, next) {
      if (!checkPassword) {
          return next(errorHandler.notFound("Incorrect password"));
      }
-
      return user;
 }
 
@@ -105,6 +104,9 @@ async function login(req, res, next) {
 
     async function addProduct(req, res, next){
         const user = await authenticateUser(req, next);
+        if(!user){
+            return next(errorHandler.notFound("user not found"));
+        }
         const {isAdmin} = user;
 
         if(!isAdmin) {
@@ -112,21 +114,30 @@ async function login(req, res, next) {
         }
 
         const {productTitle, productCategory, productImage, productPrice, productDescription} = req.body
-        insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription);
-        res.status(200).send();
+        const isSuccess = await insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription);
+
+        if(!isSuccess){
+            return next(errorHandler.forbidden("Invalid category"));
+        }
+        
+        res.status(200).send(true);
     }
 
     async function deleteProduct(req, res,next){
         const user = await authenticateUser(req, next);
+        if(!user){
+            return next(errorHandler.notFound("user not found"));
+        }
+
         const {isAdmin} = user;
 
         if(!isAdmin) {
             return next(errorHandler.forbidden("Not an Admin"));
         }
 
-        const {productTitle} = req.body
-        removeProductByTitle(productTitle);
-        res.status(200).send();
+        const {productId, categoryName} = req.body
+        await removeProduct(productId, categoryName);
+        res.status(200).send(true);
     }
 
     async function shoppingCart(req, res, next){

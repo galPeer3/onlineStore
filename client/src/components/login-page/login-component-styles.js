@@ -20,20 +20,21 @@ userDetails: {
     marginTop: "100px",
     display: "flex",
     flexDirection: "column",
+    textAlign:"center",
     fontSize: 25,
     
 },
 
 Password: {
-    marginTop: "20px",
-    marginLeft: "26px",
-    border: "5px solid blue",
+   
+    border: "5px solid black",
     borderRadius: "10px",
+    marginBottom: "50px"
 },
 
 UserName: {
-    marginLeft: "8px",
-    border: "5px solid blue",
+    border: "5px solid black",
+    marginBottom: "20px",
     borderRadius: "10px",
 },
 
@@ -41,7 +42,17 @@ LoginButton: {
     cursor: "pointer",
     marginTop: "40px",
     width: "300px",
-    fontSize: 50,
+    fontSize: 20,
+    border: "10px solid black",
+    borderRadius: "20px",
+    boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
+},
+
+RegisterButton: {
+    cursor: "pointer",
+    marginTop: "40px",
+    width: "300px",
+    fontSize: 20,
     border: "10px solid black",
     borderRadius: "20px",
     boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",

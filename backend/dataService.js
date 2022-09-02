@@ -52,8 +52,11 @@ const getProductById = async (id) => {
 }
 
 const getHighestProductIdByCategory = async (categoryName) => {
-    const products = JSON5.parse(fs.readFileSync(PRODUCTS_PATH));
-    const category = products.find((category) => category['name'] == categoryName);
+    const products = JSON5.parse(fs.readFileSync(path.join(__dirname, PRODUCTS_PATH)));
+    const category = products.find((category) => category.name == categoryName);
+    if(!category) {
+        return false;
+    }
     const categoryProducts = category.products;
 
     const initialValue = 0;

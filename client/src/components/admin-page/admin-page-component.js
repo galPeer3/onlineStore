@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/system';
+import InputUnstyled from '@mui/base/InputUnstyled';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
 import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
@@ -17,11 +18,14 @@ import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import { NavigationComponent } from "../navigation-bar/navigation-component";
+
 import { styles } from "./admin-page-component-styles.js";
 
 export function AdminComponent(props) {
     const navigate = useNavigate();
 
+    const [isFocus, setFocus] = useState(1);
     const [allProducts, setAllProducts] = useState(null);
     const [usersActivities, setUsersActivities] = useState(null);
     const [finalUserActivities, setFinalUserActivities] = useState(null);
@@ -121,6 +125,31 @@ export function AdminComponent(props) {
         `,
       );
 
+      const StyledInputElement = styled('input')(
+        ({ theme }) => `
+        width: 320px;
+        font-family: IBM Plex Sans, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        padding: 12px;
+        border-radius: 12px;
+        color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+        background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+        border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
+        box-shadow: 0px 4px 30px ${theme.palette.mode === 'dark' ? grey[900] : grey[200]};
+      
+        &:hover {
+          border-color: ${blue[400]};
+        }
+      
+        &:focus {
+          border-color: ${blue[400]};
+          outline: 3px solid ${theme.palette.mode === 'dark' ? blue[500] : blue[200]};
+        }
+      `,
+      );
+
 //     useEffect(() => {
 //         const finalUrl = `api/user/adminScreen/authenticateAdmin`;
            
@@ -191,21 +220,26 @@ useEffect(() => {
 }, []);
 
 const handleCategoryChange = (event) => {
+  setFocus(1);
     setProductCategory(event.target.value);
 }
 
 const handleNameChange = (event) => {
+  setFocus(2);
     setProductTitle(event.target.value);
 }
 
 const handlePriceChange = (event) => {
+  setFocus(4);
     setProductPrice(event.target.value);
 }
 const handleImageChange = (event) => {
+  setFocus(5);
     setProductImage(event.target.value);
 }
 
 const handleDescriptionChange = (event) => {
+  setFocus(3);
     setProductDescription(event.target.value);
 }
 
@@ -244,7 +278,7 @@ const handleDescriptionChange = (event) => {
         return;
       }
 
-    const onDeleteClick = (id)=> {
+    const onDeleteClick = (id, category)=> {
         const url = `api/user/adminScreen/removeProduct`;
 
         const response = fetch(url, {
@@ -252,7 +286,7 @@ const handleDescriptionChange = (event) => {
             headers : {'Content-Type':'application/json',
                   'Access-Control-Allow-Origin':'*',
                   'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'},
-          body: JSON.stringify({token: localStorage.getItem('auth'), productId: id}) 
+          body: JSON.stringify({token: localStorage.getItem('auth'), productId: id, categoryName: category}) 
   
           });
           response.then((response) => response.json())
@@ -273,23 +307,24 @@ const handleDescriptionChange = (event) => {
     
     const addProductForm = 
             <div style={styles.Form}>
-                <label >Product category *:<br />
-                <input style={styles.Input} type="text" value={productCategory} onChange={handleCategoryChange}  /><br /><br />
-                </label>
-                <label >Product name *:<br />
-                <input style={styles.Input} type="text" value={productTitle} onChange={handleNameChange}  /><br /><br />
-                </label>
-                <label >product description:<br />
-                <input style={styles.Input} type="text"  value={productDescription} onChange={handleDescriptionChange}/><br /><br />
-                </label>
-                <label >Product price *:<br />
-                <input style={styles.Input} type="text"  value={productPrice} onChange={handlePriceChange}  /><br /><br />
-                </label>
-                <label >product image:<br />
-                <input style={styles.Input} type="text"  value={productImage} onChange={handleImageChange}/><br /><br />
-                </label>
+                <label >Product category *<br/>
+                <input style={styles.Input} type="text"  value={productCategory} onChange={handleCategoryChange}  autoFocus={isFocus == 1? "autoFocus": false}/>
+                </label><br/><br/>
+                <label >Product name *<br/>
+                <input style={styles.Input} type="text" value={productTitle} onChange={handleNameChange}  autoFocus={isFocus == 2? "autoFocus": false}/>
+                </label><br/><br/>
+                <label >product description<br/>
+                <input style={styles.Input} type="text"  value={productDescription} onChange={handleDescriptionChange} autoFocus={isFocus == 3? "autoFocus": false}/>
+                </label><br/><br/>
+                <label >Product price *<br/>
+                <input style={styles.Input} type="text"  value={productPrice} onChange={handlePriceChange} autoFocus={isFocus == 4? "autoFocus": false}/>
+                </label><br/><br/>
+                <label >product image<br/>
+                <input style={styles.Input} type="text"  value={productImage} onChange={handleImageChange} autoFocus={isFocus == 5? "autoFocus": false}/>
+                </label><br/><br/>
                 <button style={{cursor:"pointer"}} onClick={onAddClick}>Add</button>
-            </div>   
+            </div>  
+             
 
     const deleteProduct =  <ImageList sx={{  height: 600, marginLeft:"200px"}} cols={3} rowHeight={160}  gap={100}>
 
@@ -310,7 +345,7 @@ const handleDescriptionChange = (event) => {
           actionIcon={
             <IconButton
               sx={{ color: 'rgba(0, 0, 0, 0.54)' }}
-              onClick={() => onDeleteClick(product._id)}
+              onClick={() => onDeleteClick(product._id, product.category)}
             >
                
               <DeleteForeverIcon />
@@ -341,7 +376,7 @@ const onSearch = (event) => {
 
 const showUsersActivity =
 <div style={styles.Activities}>
-    <input  type="text" placeholder="Search" value={searchValue} onChange={onSearch}></input>
+    <input  type="search" placeholder="Search" value={searchValue} onChange={onSearch} autoFocus="autoFocus"></input>
    {finalUserActivities.map((activity) => (
 <ListItem  component="div" >
       <ListItemButton>
@@ -355,6 +390,8 @@ const showUsersActivity =
     
 
     return (
+      <>
+      <NavigationComponent />
         <TabsUnstyled defaultValue={0}>
       <TabsList >
         <Tab>Add product</Tab>
@@ -365,5 +402,6 @@ const showUsersActivity =
       <TabPanel value={1}>{deleteProduct}</TabPanel>
       <TabPanel value={2}>{showUsersActivity}</TabPanel>
     </TabsUnstyled>
+    </>
     );
 }
