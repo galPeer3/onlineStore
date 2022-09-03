@@ -15,12 +15,14 @@ const getUserActivities = async () => {
     return usersActivities;
 }
 const getUserCart = async (email) => {
-    const carts = getAllCarts();
-    return carts.find((cart) => cart["email"] == email);
+    const carts = await getAllCarts();
+    
+    return carts[email];
 
 }
 const getAllCarts = async () => {
     const carts = JSON5.parse(fs.readFileSync(path.join(__dirname, CARTS_PATH)));
+
     return carts;
 }
 const getAllPurchases = async () => {

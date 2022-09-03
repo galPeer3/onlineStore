@@ -7,18 +7,15 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import Logout from '@mui/icons-material/Logout';
 import About from '@mui/icons-material/Info';
 import UserActivities from '@mui/icons-material/SupervisedUserCircle';
-import AddProduct from '@mui/icons-material/PlaylistAdd';
-import RemoveProduct from '@mui/icons-material/PlaylistRemove';
 import Box from '@mui/joy/Box';
 import ListDivider from '@mui/joy/ListDivider';
 import { styles } from "./navigation-component-styles";
-
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 
 import { useNavigate } from "react-router-dom";
 
 
 export function NavigationComponent(props) {
-    const {cartData, userData, homeData} = props;
     const navigate = useNavigate();
 
     const onHomeClick = () => {
@@ -49,13 +46,10 @@ export function NavigationComponent(props) {
     const onShoppingCartClick = () => {
         navigate('/cart', {replace: true});
     }
-    const onAddProductClick = () => {
-        navigate('/adminScreen/addProduct', {replace: true});
+    const onCheckOut = () => {
+        navigate('/checkout', {replace: true});
     }
-    const onRemoveProductClick = () => {
-        navigate('/adminScreen/removeProduct', {replace: true});
-    }
-    const onUserActivitiesClick = () => {
+    const onAdmin = () => {
         navigate('/admin', {replace: true});
     }
 
@@ -95,7 +89,7 @@ export function NavigationComponent(props) {
                         </ListItemButton>
                     </ListItem>
                     <ListDivider />
-                    <ListItem role="none" onClick={onUserActivitiesClick} sx={{ marginInlineStart: 'auto' }}>
+                    <ListItem role="none" onClick={onAdmin} sx={{ marginInlineStart: 'auto' }}>
                         <ListItemButton
                             role="menuitem"
                             component="a"
@@ -106,28 +100,18 @@ export function NavigationComponent(props) {
                         </ListItemButton>
                     </ListItem>
                     <ListDivider />
-                    <ListItem role="none" onClick={onAddProductClick} >
+                    <ListItem role="none" onClick={onCheckOut} >
                         <ListItemButton
                             role="menuitem"
                             component="a"
                             href="#horizontal-list"
                             aria-label="onAddProductClick"
                         >
-                            <AddProduct />
+                            <PointOfSaleIcon />
                         </ListItemButton>
                     </ListItem>
                     <ListDivider />
-                    <ListItem role="none" onClick={onRemoveProductClick}>
-                        <ListItemButton
-                            role="menuitem"
-                            component="a"
-                            href="#horizontal-list"
-                            aria-label="removeProduct"
-                        >
-                            <RemoveProduct />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
+                    </List>
             </Box>
         </div>
     );

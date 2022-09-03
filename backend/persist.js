@@ -1,9 +1,8 @@
 'use strict'
 const JSON5 = require("json5");
 const fs  = require("fs");
-const {getProduct, getAllUsersDetails, getAllProducts, getAllShippingDetails, getUserActivities, getHighestProductIdByCategory, getAllCarts, getUserCart, getAllPurchases} = require('./dataService.js');
+const {getProduct, getAllUsersDetails, insertPaymentMethod, getAllProducts, getUserActivities, getHighestProductIdByCategory, getAllCarts, getUserCart, getAllPurchases} = require('./dataService.js');
 const {PRODUCTS_PATH,USERS_ACTIVITY,USERS_DETAILS,SHIPPING_DETAILS,PURCHASES_PATH, CARTS_PATH} = require("./utils/paths");
-const { networkInterfaces } = require("os");
 
 // Data that must be persisted:
 // User details - done
@@ -80,6 +79,12 @@ async function createCart(email){
     fs.writeFileSync(CARTS_PATH, JSON5.stringify(allCarts));
 }
 
+async function createEmptyPurchase(email){
+    const allPurchases = await getAllPurchases();
+    allPurchases[email] = [];
+    fs.writeFileSync(PURCHASES_PATH, JSON5.stringify(allPurchases));
+}
+
 async function addProductToUserCart(email, productId, categoryName) {
     const allCarts = await getAllCarts();
     const productToAdd = await getProduct(productId, categoryName);
@@ -87,20 +92,20 @@ async function addProductToUserCart(email, productId, categoryName) {
     fs.writeFileSync(CARTS_PATH, JSON5.stringify(allCarts));
 }
 
-function removeProductFromUserCart(email, productId) {
-    const allCarts = getAllCarts();
-    const userCart = getUserCart(email);
-    if (userCart) delete userCart[productId];
+async function removeProductFromUserCart(email, productId, categoryName) {
+    const allCarts = await getAllCarts();
+    const userCart = await getUserCart(email);
+    let newUserCart;
+
+    if (userCart){
+        newUserCart = userCart.filter((product) => product.category != categoryName || product._id != productId);
+    } 
+
+    allCarts[email] = newUserCart;
+
     fs.writeFileSync(CARTS_PATH, JSON5.stringify(allCarts));
 }
 
-function insertPurchase(email, orderNumber, purchase) {
-    const allPurchases = getAllPurchases();
-    let newPurchaseRecord = {orderNumber: orderNumber,
-                            summery: purchase};
-    allPurchases[email].push(newPurchaseRecord);
-    fs.writeFileSync(PURCHASES_PATH, JSON5.stringify(allPurchases));
-}
 
 function deleteCartByUserEmail(email) {
     const allCarts = getAllCarts();
@@ -109,7 +114,7 @@ function deleteCartByUserEmail(email) {
 }
 
 function insertShippingDetails(email, firstName, lastName, address, city) {
-    const ShippingDetails = getAllShippingDetails();
+    const ShippingDetails = getAllPurchases();
     let newShippingDetailsRecord = {firstName: firstName,
                                     lastName: lastName,
                                     address: address,
@@ -118,13 +123,14 @@ function insertShippingDetails(email, firstName, lastName, address, city) {
     fs.writeFileSync(SHIPPING_DETAILS, JSON5.stringify(ShippingDetails));
 }
 
-function insertPaymentMethod(email, paymentMethod) {
-    const ShippingDetails = getAllShippingDetails()
-    ShippingDetails[email]["PaymentMethod"] = paymentMethod;
-    fs.writeFileSync(SHIPPING_DETAILS, JSON5.stringify(ShippingDetails));
+async function insertPurchase(email, products) {
+    const purchases = await getAllPurchases()
+    purchases[email] = products;
+    
+    fs.writeFileSync(PURCHASES_PATH, JSON5.stringify(purchases));
 }
 
 
 module.exports = {insertPaymentMethod, deleteCartByUserEmail, insertPurchase, removeProductFromUserCart, addProductToUserCart, insertIntoUsersDetails,
-    insertIntoUsersActivities, removeProduct, insertNewProductIntoProducts, insertShippingDetails, createCart};
+    insertIntoUsersActivities, removeProduct, insertNewProductIntoProducts, insertShippingDetails,insertPurchase, createCart, createEmptyPurchase};
 
