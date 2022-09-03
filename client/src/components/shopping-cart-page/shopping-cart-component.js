@@ -1,35 +1,19 @@
 import { useEffect, useState } from "react";
 import { NavigationComponent } from "../navigation-bar/navigation-component";
-import { useParams, useLocation  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { LoginComponent } from "../login-page/login-component";
-import { styles } from "../home-page/home-component-styles";
+import { styles } from "./shooping-cart-component-styles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 export function ShoppingCartComponent(props) {
     const navigate = useNavigate();
+    const [countReload, setCountReload] = useState(1);
     const [cartData, setCartData] = useState(null);
-
-    // const data =     [   {name: "ball", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085", price: 30}, 
-    //                     {name: "gloves", img: "https://media.4rgos.it/s/Argos/9203547_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true", price: 10},
-    //                     {name: "shirt", img: "https://i5.walmartimages.com/asr/63a71d5d-b2be-4e0a-8610-c9a0db70c439.80ee420a650303eed04c45c4793162c5.jpeg?odnHeight=580&odnWidth=580&odnBg=FFFFFF", price: 50},
-    //                     {name: "shoes", img: "https://canary.contestimg.wish.com/api/webimage/5d89832baaf8240829e721e1-large.jpg?cache_buster=1ab0b6eaaa4634cc9fe3cdea410c3c86", price: 300},
-    //                     {name: "ball", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085", price: 30}, 
-    //                     {name: "gloves", img: "https://media.4rgos.it/s/Argos/9203547_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true", price: 10},
-    //                     {name: "shirt", img: "https://i5.walmartimages.com/asr/63a71d5d-b2be-4e0a-8610-c9a0db70c439.80ee420a650303eed04c45c4793162c5.jpeg?odnHeight=580&odnWidth=580&odnBg=FFFFFF", price: 50},
-    //                     {name: "shoes", img: "https://canary.contestimg.wish.com/api/webimage/5d89832baaf8240829e721e1-large.jpg?cache_buster=1ab0b6eaaa4634cc9fe3cdea410c3c86", price: 300},
-    //                     {name: "ball", img: "https://cdn.shopify.com/s/files/1/0712/4751/products/SMA-01_2000x.jpg?v=1629409085", price: 30}, 
-    //                     {name: "gloves", img: "https://media.4rgos.it/s/Argos/9203547_R_SET?w=270&h=270&qlt=75&fmt.jpeg.interlaced=true", price: 10},
-    //                     {name: "shirt", img: "https://i5.walmartimages.com/asr/63a71d5d-b2be-4e0a-8610-c9a0db70c439.80ee420a650303eed04c45c4793162c5.jpeg?odnHeight=580&odnWidth=580&odnBg=FFFFFF", price: 50},
-    //                     {name: "shoes", img: "https://canary.contestimg.wish.com/api/webimage/5d89832baaf8240829e721e1-large.jpg?cache_buster=1ab0b6eaaa4634cc9fe3cdea410c3c86", price: 300}
-    //                 ];
+    
   useEffect(() => {
       const finalUrl = `api/user/cart`;
          
@@ -38,8 +22,6 @@ export function ShoppingCartComponent(props) {
           headers : {'Content-Type':'application/json',
                 'Access-Control-Allow-Origin':'*',
                 'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'},
-        body: JSON.stringify(localStorage.getItem('auth')) 
-
         });
         response.then((response) => response.json())
         .then((data) => {
@@ -51,32 +33,50 @@ export function ShoppingCartComponent(props) {
 
 }, []);
 
-const removeItemFromCart = (id) => {
+const removeItemFromCart = (id, categoryName) => {
       const url = 'api/user/removeFromCart';
-         alert(id)
       const response =  fetch(url, {
           method: 'POST',
           headers : {'Content-Type':'application/json',
                 'Access-Control-Allow-Origin':'*',
                 'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
                 'Access-Control-Allow-Credentials': true},
-          body: JSON.stringify({id, token: localStorage.getItem('auth')})
-        });
+                body: JSON.stringify({categoryName:categoryName, productId:id})
+              });
 
         response.then((response) => response.json())
         .then((data) => {
-            setCartData(cartData.filter((product) => product._id != id))
+            setCartData(data)
+            setCountReload(0);
           })
       .catch((error) => {
+        alert(error)
             navigate('/login', {replace:true});
           });
   };
 
 if(!cartData) {
-  alert("Loading...");
-  return;
+  return (
+    <div style={styles.loaderContainer}>
+      	  <div style={styles.spinner}></div>
+        </div>
+
+  );
 }
-    const listItems = <ImageList sx={{ width: 900, height: 600}} cols={3} rowHeight={160}  gap={100}>
+if(countReload < 1){
+  window.location.reload(false);
+  setCountReload(1);
+}
+
+if(Object.keys(cartData).length === 0) {
+  return (
+    <>
+    <NavigationComponent />
+  <h1 style={{textAlign:"center", marginTop:"50px"}}>Your cart is Empty!!!</h1>
+  </>
+  );
+}
+    const listItems = <ImageList sx={{ height: 600, marginLeft:"200px"}} cols={3} rowHeight={160}  gap={100}>
 
       {cartData.map((product) => (
         
@@ -90,12 +90,12 @@ if(!cartData) {
           
           <ImageListItemBar
             title={product.title}
-            position={"bottom"}
+            position={"below"}
             subtitle={`${product.price}$`}
             actionIcon={
               <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                onClick={() => removeItemFromCart(product._id)}
+                sx={{ color: 'rgba(0, 0, 0, 0.54)' }}
+                onClick={() => removeItemFromCart(product._id, product.category)}
               >
                 <DeleteForeverIcon />
               </IconButton>
@@ -107,12 +107,11 @@ if(!cartData) {
   
           
     return (
-        //need to map list of data and show the products
-        <div style={styles.Page}>
-        <div style={styles.Title}>
-          Home
+        <div>
+        <div>
+          Cart
         </div>
-        <div style={styles.Container}>
+        <div>
             <NavigationComponent />
             {listItems}
             

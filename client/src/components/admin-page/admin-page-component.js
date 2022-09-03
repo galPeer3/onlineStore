@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/system';
-import InputUnstyled from '@mui/base/InputUnstyled';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
 import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
@@ -10,11 +9,8 @@ import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -271,8 +267,12 @@ const handleDescriptionChange = (event) => {
     };
 
     if(!allProducts || !usersActivities || !finalUserActivities) {
-        alert("Loading... press to continue");
-        return;
+      return (
+        <div style={styles.loaderContainer}>
+              <div style={styles.spinner}></div>
+            </div>
+    
+      );
       }
 
     const onDeleteClick = (id, category)=> {

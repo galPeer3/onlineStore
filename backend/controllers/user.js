@@ -1,5 +1,5 @@
-const {removeProduct, insertShippingDetails, deleteCartByUserEmail, insertPurchase, insertPaymentMethod,insertIntoUsersDetails,
-    insertIntoUsersActivities, insertNewProductIntoProducts, addProductToUserCart, createCart} = require("../persist.js");
+const {removeProduct, insertShippingDetails, deleteCartByUserEmail, insertPurchase,insertIntoUsersDetails,
+    insertIntoUsersActivities, insertNewProductIntoProducts, addProductToUserCart, createCart, createEmptyPurchase} = require("../persist.js");
 
 const {getUserByEmail, getUserActivities, checkIfAdmin, getUserCart} = require("../dataService");
 
@@ -10,7 +10,7 @@ const {removeProductFromUserCart} = require("../persist");
 const saltRounds = 10;
 let orderNumber = 0;
 
-async function authenticateAdmin(req, next) {
+async function authenticateAdmin(req, res, next) {
     const {access_token} = req.cookies;
     if(!access_token) {
         return next(errorHandler.notFound("Session expired"));
@@ -29,7 +29,11 @@ async function authenticateAdmin(req, next) {
          return next(errorHandler.notFound("Incorrect password"));
      }
 
-     return user.isAdmin;
+     if(!user.isAdmin){
+        return next(errorHandler.notFound("user is not admin"));
+     }
+
+     res.status(200).send(true);
 }
 
 async function authenticateUser(req, next) {
@@ -39,8 +43,8 @@ async function authenticateUser(req, next) {
 
     }
     const {email, password} = access_token;
-
     const user = await getUserByEmail(email);
+
      if (!user) {
          return next(errorHandler.notFound("Email doesn't exist in the system"));
      }
@@ -50,9 +54,6 @@ async function authenticateUser(req, next) {
          return next(errorHandler.notFound("Incorrect password"));
      }
      
-     if(!user.isAdmin) {
-        return next(errorHandler.notFound("User is not admin"));
-     }
 
      return user;
 }
@@ -77,6 +78,8 @@ async function register(req, res, next) {
     await insertIntoUsersDetails(email, hashPassword);
     await insertIntoUsersActivities("Register", email, "Register succeed");
     await createCart(email);
+    await createEmptyPurchase(email);
+
     res.status(200).send(true);
 }
 
@@ -176,8 +179,9 @@ async function login(req, res, next) {
         if(!user){
             return next(errorHandler.notFound("user not found"));
         }
-        const {email} = req.body;
-        const cart = getUserCart(email)  || [];
+
+        const cart = await getUserCart(user.email)  || [];
+
         return res.status(200).json(cart);
     }
 
@@ -193,13 +197,16 @@ async function login(req, res, next) {
 
     async function removeFromCart(req,res,next) {
         const user = await authenticateUser(req, next);
+
         if(!user){
             return next(errorHandler.notFound("user not found"));
         }
 
-        const {email,productId} = req.body;
-        removeProductFromUserCart(email,productId);
-        res.status(200).send();
+        const {productId, categoryName} = req.body;
+
+        await removeProductFromUserCart(user.email, productId, categoryName);
+
+        res.status(200).send(true);
     }
 
     async function checkout(req,res,next){
@@ -219,9 +226,12 @@ async function login(req, res, next) {
         if(!user){
             return next(errorHandler.notFound("user not found"));
         }
-        const {email, paymentMethod} = req.body;
-        insertPaymentMethod(email, paymentMethod);
-        res.status(200).send();
+        const {products} = req.body;
+        await insertPurchase(user.email, products);
+        await insertIntoUsersActivities("Purchase", user.email, "Purchase success");
+
+
+        res.status(200).send(true);
     }
 
     async function shipping(req,res,next){

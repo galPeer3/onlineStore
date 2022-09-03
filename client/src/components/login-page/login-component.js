@@ -1,8 +1,6 @@
 import { styles } from './login-component-styles';
 import { useState } from 'react';
-import {Redirect} from "../service/Redirect";
 import { useNavigate } from "react-router-dom";
-import { HomeComponent } from '../home-page/home-component';
 
 export function LoginComponent(props) {
     const navigate = useNavigate();
