@@ -1,1 +1,1 @@
-[{email:'admin',hashPassword:'$2a$10$GH.2cwc72hGeea41LCL1F.2SknsTaexfpwTMGrJkZCEQJy6imIy5K',isAdmin:true},{email:'@',hashPassword:'$2a$10$6D60ZcMzS5y.szd1t4b5ceD1RxZDgEQlxzPCU/2lSp/Cq86ElE3SW',isAdmin:false}]
+[{email:'admin',hashPassword:'$2a$10$GH.2cwc72hGeea41LCL1F.2SknsTaexfpwTMGrJkZCEQJy6imIy5K',isAdmin:true},{email:'@',hashPassword:'$2a$10$6D60ZcMzS5y.szd1t4b5ceD1RxZDgEQlxzPCU/2lSp/Cq86ElE3SW',isAdmin:false},{email:'try@',hashPassword:'$2a$10$Jnb3Pb.xrVmwZ9uTnD2zb.8oHd0FHK0kGANnq/POOlrTHfFaSvQMm',isAdmin:false}]

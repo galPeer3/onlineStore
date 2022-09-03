@@ -229,7 +229,9 @@ async function login(req, res, next) {
         const {products} = req.body;
         await insertPurchase(user.email, products);
         await insertIntoUsersActivities("Purchase", user.email, "Purchase success");
-
+        for(const product of products){
+            await removeProductFromUserCart(user.email, product._id, product.category);
+        }
 
         res.status(200).send(true);
     }
