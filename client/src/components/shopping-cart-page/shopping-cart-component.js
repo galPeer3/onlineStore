@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
+
 export function ShoppingCartComponent(props) {
     const navigate = useNavigate();
     const [countReload, setCountReload] = useState(1);
@@ -72,7 +73,7 @@ if(Object.keys(cartData).length === 0) {
   return (
     <>
     <NavigationComponent />
-  <h1 style={{textAlign:"center", marginTop:"50px"}}>Your cart is Empty!!!</h1>
+  <h1 style={{textAlign:"center", marginTop:"50px"}}>Your cart is Empty!</h1>
   </>
   );
 }
@@ -108,9 +109,6 @@ if(Object.keys(cartData).length === 0) {
           
     return (
         <div>
-        <div>
-          Cart
-        </div>
         <div>
             <NavigationComponent />
             {listItems}

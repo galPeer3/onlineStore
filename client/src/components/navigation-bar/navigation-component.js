@@ -41,7 +41,7 @@ export function NavigationComponent(props) {
     };
     
     const onAboutClick = () => {
-        navigate('/about');
+        navigate('/about', {replace: true});
     }
     const onShoppingCartClick = () => {
         navigate('/cart', {replace: true});

@@ -545,14 +545,6 @@
                   "price": "65",
                   "description": "Swimming armbands with fabric interior for 15-30 kg kids"
                 },
-                {
-                  "_id": 11,
-                  "title": "Waterproof bag",
-                  "category": "Watersport",
-                  "image": "./Images/watersport/waterproof-dry-bag.jpeg",
-                  "price": "225",
-                  "description": "waterproof dry bag"
-                }
               ]
             }
 

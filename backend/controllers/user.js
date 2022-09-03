@@ -53,7 +53,7 @@ async function authenticateUser(req, next) {
      if (!checkPassword) {
          return next(errorHandler.notFound("Incorrect password"));
      }
-     
+
 
      return user;
 }
