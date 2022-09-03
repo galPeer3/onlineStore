@@ -45,7 +45,7 @@ export function RegisterComponent(props) {
             <h1 style={styles.Title}>Welcome!</h1>
             <div style={styles.userDetails}>
             <label>
-                User Name:<br/>
+                User Email:<br/>
                 <input style={styles.UserName} type="text" value={email} onChange={handleEmailChange}  />
             </label>
             <label><br/>

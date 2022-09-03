@@ -1,7 +1,6 @@
 const Router = require('express');
 const userRouter = new Router();
-const {register, logout, login, payment, shipping, purchaseCompleted, shoppingCart, addToCart, removeFromCart, checkout, addProduct, deleteProduct, userActivities, authenticateAdmin} = require('../controllers/user.js');
-// const authMiddleware = require('../middleware/authMiddleware')
+const {register, logout, login, payment, shoppingCart, addToCart, removeFromCart, addProduct, deleteProduct, userActivities, authenticateAdmin} = require('../controllers/user.js');
 const bodyParser = require('body-parser');
 
 userRouter.use(bodyParser.json());

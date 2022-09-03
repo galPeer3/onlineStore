@@ -48,7 +48,8 @@ const finalUrl = `api/user/checkout/payment`;
         });
         response.then((response) => response.json())
         .then((data) => {
-            alert(`You paid successfully`)
+            window.location.reload();
+            alert(`You paid successfully`);
           })
       .catch((error) => {
         alert("please login");

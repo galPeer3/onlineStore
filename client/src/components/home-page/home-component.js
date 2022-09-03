@@ -10,7 +10,7 @@ export function HomeComponent(props) {
 
     return (
 
-        <div>
+        <div style={styles.HomePage}>
             <HeaderComponent />
             <section className="site" style={styles.Site}>
                 <div>

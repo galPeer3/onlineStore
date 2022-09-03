@@ -116,14 +116,12 @@ if(!homeData) {
 }
 
     return (
-        <div style={styles.Page}>
-        <div style={styles.Container}>
+        <div>
             <NavigationComponent />
             <input  type="search" placeholder="Search" value={searchValue} onChange={onSearch} autoFocus="autoFocus"></input>
 
             {listItems}
             
-        </div>
         </div>
     );
 }

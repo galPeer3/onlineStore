@@ -10,8 +10,7 @@ import {HeaderComponent} from "../header/header-component";
 export function AboutUsPageComponent(props) {
     return (
         <div style={styles.Page}>
-        <HeaderComponent />
-            <div style={styles.SiteNav}>
+            <div>
         <NavigationComponent  />
             </div>
             <div>
@@ -19,7 +18,7 @@ export function AboutUsPageComponent(props) {
                     fontSize="32px"
                     fontWeight="lg"
                     fontFamily= "Georgia"
-                    mt={{ xs:12, sm: 28 }}
+                    mt={{ xs:2, sm: 4}}
                 >
                     About Us
 
@@ -28,6 +27,8 @@ export function AboutUsPageComponent(props) {
                     fontSize="20px"
                     fontWeight="lg"
                     fontFamily= "Georgia"
+                    mt={{ xs:2, sm: 2}}
+
                 >
                     Hello you all! We are Gal and Gil and we are glad to represent you our site!
                     You can choose from the Home page any sport category you like and see all it's related products.
@@ -40,6 +41,8 @@ export function AboutUsPageComponent(props) {
                 fontSize="22px"
                 fontWeight="lg"
                 fontFamily= "Georgia"
+                mt={{ xs:2, sm: 4}}
+
             >
                 Who we are
             </Typography>{' '}
@@ -49,8 +52,7 @@ export function AboutUsPageComponent(props) {
                         <img src={gilImage} alt="Gil" style={styles.Image}/>
                             <div style={styles.Container}>
                                 <Typography
-                                    level="h5"
-                                    fontSize="18px"
+                                    fontSize="26px"
                                     fontWeight="lg"
                                     fontFamily= "Georgia"
                                     textColor="DarkSlateGrey"
@@ -66,8 +68,7 @@ export function AboutUsPageComponent(props) {
                         <img src={galImage} alt="Gal" style={styles.Image}/>
                             <div style={styles.Container}>
                                 <Typography
-                                    level="h5"
-                                    fontSize="18px"
+                                    fontSize="26px"
                                     fontWeight="lg"
                                     fontFamily= "Georgia"
                                     textColor="DarkSlateGrey"
