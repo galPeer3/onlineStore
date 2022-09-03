@@ -150,28 +150,25 @@ export function AdminComponent(props) {
       `,
       );
 
-//     useEffect(() => {
-//         const finalUrl = `api/user/adminScreen/authenticateAdmin`;
+    useEffect(() => {
+        const finalUrl = `api/user/adminScreen/authenticateAdmin`;
            
-//         const response = fetch(finalUrl, {
-//             method: 'GET',
-//             headers : {'Content-Type':'application/json',
-//                   'Access-Control-Allow-Origin':'*',
-//                   'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'},
-//           body: JSON.stringify(localStorage.getItem('auth')) 
+        const response = fetch(finalUrl, {
+            method: 'GET',
+            headers : {'Content-Type':'application/json',
+                  'Access-Control-Allow-Origin':'*',
+                  'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'},
   
-//           });
-//           response.then((response) => response.json())
-//           .then((data) => {
-//               if(!data){
-//                 navigate('/home', {replace:true});
-//               }
-//             })
-//         .catch((error) => {
-//             alert("something went wrong...");
-//             });
+          });
+          response.then((response) => response.json())
+          .then((data) => {
+            })
+        .catch((error) => {
+            alert("something went wrong...");
+            navigate('/home', {replace:true});
+            });
   
-//   }, []);
+  }, []);
 
 useEffect(() => {
     
@@ -269,7 +266,7 @@ const handleDescriptionChange = (event) => {
               }
             })
         .catch((error) => {
-            alert(error);
+            alert("invalid category!");
             });
     };
 
@@ -365,7 +362,7 @@ const onSearch = (event) => {
     else {
         let list = [];
         for(const activity of usersActivities) {
-            if(activity.name.startsWith(searchValue)) {
+            if(activity.email.startsWith(searchValue)) {
                 list.push(activity);
             }
         }
@@ -380,7 +377,7 @@ const showUsersActivity =
    {finalUserActivities.map((activity) => (
 <ListItem  component="div" >
       <ListItemButton>
-        <ListItemText primary={`name: ${activity.name},    action: ${activity.action} `} />
+        <ListItemText primary={`email: ${activity.email}, date: ${activity.date}, activity: ${activity.activity}, event: ${activity.event}`} />
       </ListItemButton>
     </ListItem>
     ))}

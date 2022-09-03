@@ -1,5 +1,5 @@
 const {removeProduct, insertShippingDetails, deleteCartByUserEmail, insertPurchase, insertPaymentMethod,insertIntoUsersDetails,
-    insertIntoUsersActivities, insertNewProductIntoProducts, addProductToUserCart} = require("../persist.js");
+    insertIntoUsersActivities, insertNewProductIntoProducts, addProductToUserCart, createCart} = require("../persist.js");
 
 const {getUserByEmail, getUserActivities, checkIfAdmin, getUserCart} = require("../dataService");
 
@@ -10,37 +10,63 @@ const {removeProductFromUserCart} = require("../persist");
 const saltRounds = 10;
 let orderNumber = 0;
 
-
-async function authenticateUser(req, next) {
-    //const {access_token} = req.cookies;
-    const {token} = req.body;
-    let decoded;
-    try{
-     decoded = jwt.verify(token, "secret_123456");
-    }
-    catch(error){
-        return next(errorHandler.notFound("invalid token"));
+async function authenticateAdmin(req, next) {
+    const {access_token} = req.cookies;
+    if(!access_token) {
+        return next(errorHandler.notFound("Session expired"));
 
     }
+    const {email, password} = access_token;
 
-    const {email, password} = decoded;
-     const user = await getUserByEmail(email);
+    const user = await getUserByEmail(email);
 
      if (!user) {
          return next(errorHandler.notFound("Email doesn't exist in the system"));
      }
 
-     let checkPassword = password == user.password;
+     let checkPassword = password == user.hashPassword;
      if (!checkPassword) {
          return next(errorHandler.notFound("Incorrect password"));
      }
+
+     return user.isAdmin;
+}
+
+async function authenticateUser(req, next) {
+    const {access_token} = req.cookies;
+    if(!access_token) {
+        return next(errorHandler.notFound("Session expired"));
+
+    }
+    const {email, password} = access_token;
+
+    const user = await getUserByEmail(email);
+     if (!user) {
+         return next(errorHandler.notFound("Email doesn't exist in the system"));
+     }
+
+     let checkPassword = password == user.hashPassword;
+     if (!checkPassword) {
+         return next(errorHandler.notFound("Incorrect password"));
+     }
+
+     if(!user.isAdmin) {
+        return next(errorHandler.notFound("User is not admin"));
+     }
+
      return user;
 }
+
 
 async function register(req, res, next) {
     const {email, password} = req.body;
     if (!email || !password) {
         return next(errorHandler.notFound("Missing email or password"));
+    }
+
+    if(email.indexOf('@') == -1){
+        let message = "invalid email";
+        return next(errorHandler.internalServer(message));
     }
     const user = await getUserByEmail(email);
     if (user) {
@@ -48,8 +74,10 @@ async function register(req, res, next) {
     }
     // create the salt and hash the password
     const hashPassword = await bcrypt.hash(password, saltRounds);
-    insertIntoUsersDetails(email, hashPassword);
-    return ;
+    await insertIntoUsersDetails(email, hashPassword);
+    await insertIntoUsersActivities("Register", email, "Register succeed");
+    await createCart(email);
+    res.status(200).send(true);
 }
 
 async function login(req, res, next) {
@@ -59,13 +87,17 @@ async function login(req, res, next) {
         let message = "invalid email";
         return next(errorHandler.internalServer(message));
     }
+    if(email != "admin" && email.indexOf('@') == -1){
+        let message = "invalid email";
+        return next(errorHandler.internalServer(message));
+    }
+
     const user = await getUserByEmail(email);
     if (!user) {
         let message = "Email doesn't exist in the system";
         return next(errorHandler.internalServer(message));
     }
-
-        let isCorrectPassword = bcrypt.compareSync(password, user.password);
+        let isCorrectPassword = bcrypt.compareSync(password, user.hashPassword);
 
         if (!isCorrectPassword) {
             let message = "Incorrect password";
@@ -73,31 +105,27 @@ async function login(req, res, next) {
         }
 
         const isAdmin = checkIfAdmin(email);
-        const exp = rememberMe ? "10 days" : 30*60
-       insertIntoUsersActivities("Login", user.email, "Login succeed");
+        const exp = rememberMe ? "10d" : "1800s"
+        await insertIntoUsersActivities("Login", user.email, "Login succeed");
         const token = JSON.stringify(generateToken(exp, user.email, user.password, isAdmin));
-        const cookiesOptions = {httpOnly: true, maxAge: rememberMe ? 10*24*60*60 : 30*60 } //why not exp?
-        res.cookie("access_token", token, cookiesOptions);
+        const cookiesOptions = {httpOnly: true, maxAge: rememberMe ? 10*24*60*60*1000 : 30*60*1000 }
+        res.cookie("access_token", {email: user.email, password: user.hashPassword}, cookiesOptions);
         res.status(200).send(token);
     }
 
     async function logout(req,res) {
-        const {email} = req.body;
+        const {access_token} = req.cookies;
+        if(!access_token){
+            return next(errorHandler.notFound("user not logged in"));
+
+        }
+        const {email} = access_token;
         res.clearCookie("access_token");
         insertIntoUsersActivities("Logout", email, "Logout Success");
-        res.status(200).send();
+        res.status(200).send(true);
     }
 
     async function userActivities(req, res, next) {
-
-        // const user = await authenticateUser(req, next);
-
-        // const {isAdmin} = user;
-
-        // if(!isAdmin) {
-        //     return next(errorHandler.forbidden("Not an Admin"));
-        // }
-
         const userActivities = await getUserActivities();
         res.status(200).send(userActivities);
     }
@@ -119,11 +147,12 @@ async function login(req, res, next) {
         if(!isSuccess){
             return next(errorHandler.forbidden("Invalid category"));
         }
-        
+        await insertIntoUsersActivities("Add product", user.email, "Adding success");
+
         res.status(200).send(true);
     }
 
-    async function deleteProduct(req, res,next){
+    async function deleteProduct(req, res, next){
         const user = await authenticateUser(req, next);
         if(!user){
             return next(errorHandler.notFound("user not found"));
@@ -137,6 +166,8 @@ async function login(req, res, next) {
 
         const {productId, categoryName} = req.body
         await removeProduct(productId, categoryName);
+        await insertIntoUsersActivities("Delete product", user.email, "deleted success");
+
         res.status(200).send(true);
     }
 
@@ -155,9 +186,9 @@ async function login(req, res, next) {
         if(!user){
             return next(errorHandler.notFound("user not found"));
         }
-        const {email, productId} = req.body;
-        addProductToUserCart(email, productId);
-        res.status(200).send();
+        const {productId, categoryName} = req.body;
+        await addProductToUserCart(user.email, productId, categoryName);
+        res.status(200).send(true);
     }
 
     async function removeFromCart(req,res,next) {
@@ -230,6 +261,6 @@ const generateToken = (exp, email, password, isAdmin) => {
 }
 
 module.exports = {check, checkout,payment, shipping, purchaseCompleted, removeFromCart, addToCart, shoppingCart, deleteProduct,
-    addProduct, login, register, logout, userActivities};
+    addProduct, login, register, authenticateAdmin, logout, userActivities};
 
 

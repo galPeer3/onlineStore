@@ -15,7 +15,7 @@ export const styles = {
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
-    marginLeft:"630px"
+    marginLeft:"350px"
   },
   Input: {
     border: "5px solid blue",

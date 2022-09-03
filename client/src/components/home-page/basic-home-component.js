@@ -51,16 +51,15 @@ export function BasicHomeComponent(props) {
 
 }, []);
 
-const addItemToCart = (id) => {
+const addItemToCart = (id, categoryName) => {
       const url = 'api/user/addToCart';
-         alert(id)
       const response =  fetch(url, {
           method: 'POST',
           headers : {'Content-Type':'application/json',
                 'Access-Control-Allow-Origin':'*',
                 'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
                 'Access-Control-Allow-Credentials': true},
-          body: JSON.stringify({id, token: localStorage.getItem('auth')})
+          body: JSON.stringify({categoryName:categoryName, productId:id, token: localStorage.getItem('auth')})
         });
 
         response.then((response) => response.json())
@@ -68,6 +67,7 @@ const addItemToCart = (id) => {
           alert("The item has been added");
           })
       .catch((error) => {
+        alert("Please login")
             navigate('/login', {replace:true});
           });
   };
@@ -90,12 +90,12 @@ if(!homeData) {
           
           <ImageListItemBar
             title={product.title}
-            position={"bottom"}
+            position={"below"}
             subtitle={`${product.price}$`}
             actionIcon={
               <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                onClick={() => addItemToCart(product._id)}
+                sx={{ color: 'rgba(0, 0, 0, 0.54)' }}
+                onClick={() => addItemToCart(product._id, product.category)}
               >
                 Add 
                 <AddCircleIcon />

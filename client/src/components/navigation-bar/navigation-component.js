@@ -27,22 +27,21 @@ export function NavigationComponent(props) {
     const onLogoutClick = () => {
         const response = fetch('api/user/logout', {
 
-            method: 'POST',
+            method: 'GET',
              headers : {'Content-Type':'application/json',
                     'Access-Control-Allow-Origin':'*',
                     'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
                },
-            body: JSON.stringify(localStorage.getItem('auth')) 
           });
           response.then((data) =>data.json())
-          .then((token) => {
-            localStorage.setItem('auth', null)
-            navigate('/login', {replace: true})
+          .then((data) => {
+            localStorage.setItem('auth', null);
+            navigate('/', {replace: true})
             })
             .catch((error) => {
-                alert("logout failed");
+                alert(error);
                 });
-            }
+    };
     
     const onAboutClick = () => {
         navigate('/about', {replace: true});
@@ -57,7 +56,7 @@ export function NavigationComponent(props) {
         navigate('/adminScreen/removeProduct', {replace: true});
     }
     const onUserActivitiesClick = () => {
-        navigate('/adminScreen/userActivities', {replace: true});
+        navigate('/admin', {replace: true});
     }
 
     return (
