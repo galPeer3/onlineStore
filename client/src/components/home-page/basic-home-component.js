@@ -13,6 +13,9 @@ export function BasicHomeComponent(props) {
     const navigate = useNavigate();
     const {url} = props;
     const [homeData, setHomeData] = useState(null);
+    const [finalHomeData, setFinalHomeData] = useState(null);
+    const [searchValue, setSearchValue] = useState(null);
+    let tempSearchValue = "";
 
   useEffect(() => {
     
@@ -27,6 +30,7 @@ export function BasicHomeComponent(props) {
         response.then((response) => response.json())
         .then((data) => {
           setHomeData(data);
+          setFinalHomeData(data);
           })
       .catch((error) => {
           alert(error);
@@ -65,7 +69,7 @@ if(!homeData) {
 }
     const listItems = <ImageList sx={{ height: 600, marginLeft:"200px"}} cols={3} rowHeight={160}  gap={100}>
 
-      {homeData.map((product) => (
+      {finalHomeData.map((product) => (
         
         <ImageListItem sx={{ maxWidth: "200px", maxHeight: "200px", marginBottom:"5px", marginRight:"5px"}} key={product.img} cols={1}>
           <img
@@ -93,11 +97,30 @@ if(!homeData) {
     </ImageList>
   
           
+  const onSearch = (event) => {
+    setSearchValue(event.target.value)
+    tempSearchValue = event.target.value;
+    if(tempSearchValue == "") {
+        setFinalHomeData(homeData);
+    }
+    else {
+        let list = [];
+        for(const product of homeData) {
+            if(product.title.startsWith(searchValue)) {
+                list.push(product);
+            }
+        }
+
+        setFinalHomeData(list);
+    }
+}
+
     return (
         <div style={styles.Page}>
-  
         <div style={styles.Container}>
             <NavigationComponent />
+            <input  type="search" placeholder="Search" value={searchValue} onChange={onSearch} autoFocus="autoFocus"></input>
+
             {listItems}
             
         </div>
