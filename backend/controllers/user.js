@@ -74,9 +74,9 @@ async function login(req, res, next) {
 
         const isAdmin = checkIfAdmin(email);
         const exp = rememberMe ? "10 days" : 30*60
-       // insertIntoActivitiesOfUsers("Login", user.email, "Login succeed");
+       insertIntoUsersActivities("Login", user.email, "Login succeed");
         const token = JSON.stringify(generateToken(exp, user.email, user.password, isAdmin));
-        const cookiesOptions = {httpOnly: true, maxAge: rememberMe ? 10*24*60*60 : 30*60 }
+        const cookiesOptions = {httpOnly: true, maxAge: rememberMe ? 10*24*60*60 : 30*60 } //why not exp?
         res.cookie("access_token", token, cookiesOptions);
         res.status(200).send(token);
     }
