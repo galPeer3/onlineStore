@@ -16,7 +16,7 @@ const getUserActivities = async () => {
 }
 const getUserCart = async (email) => {
     const carts = await getAllCarts();
-    
+
     return carts[email];
 
 }
@@ -36,11 +36,6 @@ const getPurchaseById = async (orderNumber) => {
 const getAllUsersDetails = async () => {
     const users = JSON5.parse(fs.readFileSync(path.join(__dirname, USERS_DETAILS)));
     return users;
-}
-
-const getAllShippingDetails = async () =>{
-    const shippingDetails = JSON5.parse(fs.readFileSync(SHIPPING_DETAILS));
-    return shippingDetails;
 }
 
 const getAllProducts = async () => {
@@ -86,5 +81,5 @@ const checkIfAdmin = async (email) => {
 
 module.exports = {checkIfAdmin, getHighestProductIdByCategory, getProduct, getAllProducts,
     getAllUsersDetails, getPurchaseById, getAllPurchases, getAllCarts, getUserCart, getUserActivities,
-    getUserByEmail, getAllShippingDetails};
+    getUserByEmail};
 

@@ -1,4 +1,4 @@
-const {removeProduct, insertShippingDetails, deleteCartByUserEmail, insertPurchase,insertIntoUsersDetails,
+const {removeProduct, insertPurchase,insertIntoUsersDetails,
     insertIntoUsersActivities, insertNewProductIntoProducts, addProductToUserCart, createCart, createEmptyPurchase} = require("../persist.js");
 
 const {getUserByEmail, getUserActivities, checkIfAdmin, getUserCart} = require("../dataService");
@@ -209,18 +209,6 @@ async function login(req, res, next) {
         res.status(200).send(true);
     }
 
-    async function checkout(req,res,next){
-        const {email} = req.body;
-        const userCart =  await getUserCart(email);
-
-        let totalPrice = 0;
-
-        userCart.forEach((product) => {
-            totalPrice += product.price
-        });
-        res.status(200).send(totalPrice);
-    }
-
     async function payment(req,res,next){
         const user = await authenticateUser(req, next);
         if(!user){
@@ -236,34 +224,6 @@ async function login(req, res, next) {
         res.status(200).send(true);
     }
 
-    async function shipping(req,res,next){
-        const user = await authenticateUser(req, next);
-        if(!user){
-            return next(errorHandler.notFound("user not found"));
-        }
-        const {email, firstName, lastName, address, city} = req.body;
-        insertShippingDetails(email, firstName, lastName, address, city);
-        res.status(200).send();
-    }
-
-    async function purchaseCompleted(req,res,next){
-        const user = await authenticateUser(req, next);
-        if(!user){
-            return next(errorHandler.notFound("user not found"));
-        }
-        const {email, purchase} = req.body;
-        insertPurchase(email,orderNumber,purchase);
-        deleteCartByUserEmail(email);
-        orderNumber++;
-        res.status(200).json("Purchase completed successfully");
-    }
-
-    async function check(req, res, next) {
-        // const exp = req.body.rememberMe ? "10 days" : 30
-        // return res.json(generateToken(exp, req.user.id, req.user.email, req.user.role));
-    }
-
-
 const generateToken = (exp, email, password, isAdmin) => {
     return jwt.sign(
         {email: email, password: password, isAdmin: isAdmin},
@@ -272,7 +232,7 @@ const generateToken = (exp, email, password, isAdmin) => {
     )
 }
 
-module.exports = {check, checkout,payment, shipping, purchaseCompleted, removeFromCart, addToCart, shoppingCart, deleteProduct,
+module.exports = {payment, removeFromCart, addToCart, shoppingCart, deleteProduct,
     addProduct, login, register, authenticateAdmin, logout, userActivities};
 
 

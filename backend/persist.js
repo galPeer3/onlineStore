@@ -1,14 +1,8 @@
 'use strict'
 const JSON5 = require("json5");
 const fs  = require("fs");
-const {getProduct, getAllUsersDetails, insertPaymentMethod, getAllProducts, getUserActivities, getHighestProductIdByCategory, getAllCarts, getUserCart, getAllPurchases} = require('./dataService.js');
+const {getProduct, getAllUsersDetails, getAllProducts, getUserActivities, getHighestProductIdByCategory, getAllCarts, getUserCart, getAllPurchases} = require('./dataService.js');
 const {PRODUCTS_PATH,USERS_ACTIVITY,USERS_DETAILS,SHIPPING_DETAILS,PURCHASES_PATH, CARTS_PATH} = require("./utils/paths");
-
-// Data that must be persisted:
-// User details - done
-// Cart - done
-// Purchases - done
-// Login activity - done
 
 async function insertNewProductIntoProducts(productTitle, productCategory, productImage, productPrice, productDescription) {
     const storeProducts = await getAllProducts();
@@ -44,13 +38,6 @@ async function removeProduct(productId, categoryName) {
     }
     const afterDeletion = storeProducts[categoryIndex].products.filter((product)=> product._id != productId );
     storeProducts[categoryIndex].products = afterDeletion;
-    fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(storeProducts));
-}
-
-function removeProductById(productId) {
-    const storeProducts = getAllProducts();
-    const categoryIndex = storeProducts.indexOf((category) => category['name'] == categoryName);
-    storeProducts[categoryIndex].products.filter((product)=>product._id !== productId );
     fs.writeFileSync(PRODUCTS_PATH, JSON5.stringify(storeProducts));
 }
 
@@ -106,23 +93,6 @@ async function removeProductFromUserCart(email, productId, categoryName) {
     fs.writeFileSync(CARTS_PATH, JSON5.stringify(allCarts));
 }
 
-
-function deleteCartByUserEmail(email) {
-    const allCarts = getAllCarts();
-    delete allCarts[email];
-    fs.writeFileSync(CARTS_PATH, JSON5.stringify(allCarts));
-}
-
-function insertShippingDetails(email, firstName, lastName, address, city) {
-    const ShippingDetails = getAllPurchases();
-    let newShippingDetailsRecord = {firstName: firstName,
-                                    lastName: lastName,
-                                    address: address,
-                                    city: city};
-    ShippingDetails[email] = newShippingDetailsRecord;
-    fs.writeFileSync(SHIPPING_DETAILS, JSON5.stringify(ShippingDetails));
-}
-
 async function insertPurchase(email, products) {
     const purchases = await getAllPurchases()
     purchases[email] = products;
@@ -131,6 +101,6 @@ async function insertPurchase(email, products) {
 }
 
 
-module.exports = {insertPaymentMethod, deleteCartByUserEmail, insertPurchase, removeProductFromUserCart, addProductToUserCart, insertIntoUsersDetails,
-    insertIntoUsersActivities, removeProduct, insertNewProductIntoProducts, insertShippingDetails,insertPurchase, createCart, createEmptyPurchase};
+module.exports = {insertPurchase, removeProductFromUserCart, addProductToUserCart, insertIntoUsersDetails,
+    insertIntoUsersActivities, removeProduct, insertNewProductIntoProducts,insertPurchase, createCart, createEmptyPurchase};
 
